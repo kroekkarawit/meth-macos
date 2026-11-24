@@ -1,0 +1,139 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write   # create the release and push the gh-pages appcast
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: macos-26
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Validate version
+        id: version
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+          [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "::error::Tag $TAG is not vX.Y.Z"; exit 1; }
+          FILE_VERSION="$(awk -F' = ' '/^MARKETING_VERSION/ {print $2}' Config/Version.xcconfig)"
+          [[ "$VERSION" == "$FILE_VERSION" ]] || { echo "::error::Tag $VERSION != Config/Version.xcconfig $FILE_VERSION"; exit 1; }
+          grep -qE "^## \[?$VERSION\]?" CHANGELOG.md || { echo "::error::CHANGELOG.md has no $VERSION section"; exit 1; }
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists (published locally); nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Select Xcode
+        if: steps.version.outputs.skip != 'true'
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)"
+
+      - name: Import Developer ID certificate into a temporary keychain
+        if: steps.version.outputs.skip != 'true'
+        env:
+          P12_BASE64: ${{ secrets.DEVELOPER_ID_P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.DEVELOPER_ID_P12_PASSWORD }}
+        run: |
+          KEYCHAIN="$RUNNER_TEMP/meth-signing.keychain-db"
+          KEYCHAIN_PASSWORD="$(openssl rand -hex 24)"
+          echo "::add-mask::$KEYCHAIN_PASSWORD"
+          printf '%s' "$P12_BASE64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security import "$RUNNER_TEMP/cert.p12" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN"
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN" >/dev/null
+          security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
+          rm -f "$RUNNER_TEMP/cert.p12"
+          security find-identity -v -p codesigning "$KEYCHAIN" | grep -q "Developer ID Application"
+
+      - name: Write notary and Sparkle keys
+        if: steps.version.outputs.skip != 'true'
+        env:
+          NOTARY_KEY_P8_BASE64: ${{ secrets.NOTARY_KEY_P8_BASE64 }}
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
+        run: |
+          umask 077
+          printf '%s' "$NOTARY_KEY_P8_BASE64" | base64 --decode > "$RUNNER_TEMP/notary.p8"
+          printf '%s' "$SPARKLE_PRIVATE_KEY" > "$RUNNER_TEMP/sparkle.key"
+
+      - name: Build, sign, notarize, package
+        if: steps.version.outputs.skip != 'true'
+        env:
+          NOTARY_KEY_PATH: ${{ runner.temp }}/notary.p8
+          NOTARY_KEY_ID: ${{ secrets.NOTARY_KEY_ID }}
+          NOTARY_ISSUER: ${{ secrets.NOTARY_ISSUER_ID }}
+        run: |
+          brew install xcodegen
+          VERSION="${{ steps.version.outputs.version }}"
+          ./Scripts/build.sh Release
+          ./Scripts/sign.sh
+          ./Scripts/notarize.sh dist/Meth.app
+          ./Scripts/package-dmg.sh "$VERSION"
+          ./Scripts/notarize.sh "dist/Meth-$VERSION.dmg"
+          (cd dist && shasum -a 256 "Meth-$VERSION.dmg" "Meth-$VERSION.zip" > checksums.txt)
+
+      - name: Sign update and generate appcast
+        if: steps.version.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          BUILD="$(awk -F' = ' '/^CURRENT_PROJECT_VERSION/ {print $2}' Config/Version.xcconfig)"
+          SB="$(find build/DerivedData/SourcePackages/artifacts -type d -name bin -path '*Sparkle*' | head -1)"
+          ATTRS="$("$SB/sign_update" --ed-key-file "$RUNNER_TEMP/sparkle.key" "dist/Meth-$VERSION.zip")"
+          SIG="$(sed -E 's/.*sparkle:edSignature="([^"]+)".*/\1/' <<<"$ATTRS")"
+          LEN="$(sed -E 's/.*length="([0-9]+)".*/\1/' <<<"$ATTRS")"
+          git fetch -q origin gh-pages && git worktree add -f build/gh-pages origin/gh-pages || mkdir -p build/gh-pages
+          python3 Scripts/appcast.py build/gh-pages/appcast.xml "$VERSION" "$BUILD" \
+            "https://github.com/${GITHUB_REPOSITORY}/releases/download/v$VERSION/Meth-$VERSION.zip" \
+            "$LEN" "$SIG" "14.0" CHANGELOG.md
+
+      - name: Create GitHub Release
+        if: steps.version.outputs.skip != 'true'
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          python3 - "$VERSION" > "$RUNNER_TEMP/notes.md" <<'PY'
+          import re, sys
+          t = open("CHANGELOG.md").read()
+          m = re.search(rf"^## \[?{re.escape(sys.argv[1])}\]?.*?$(.*?)(?=^## |\Z)", t, re.S | re.M)
+          print(m.group(1).strip())
+          PY
+          gh release create "v$VERSION" --title "Meth $VERSION" --notes-file "$RUNNER_TEMP/notes.md" \
+            "dist/Meth-$VERSION.dmg" "dist/Meth-$VERSION.zip" dist/checksums.txt
+
+      - name: Publish appcast
+        if: steps.version.outputs.skip != 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          ./Scripts/publish-appcast.sh build/gh-pages "${{ steps.version.outputs.version }}"
+
+      - name: Verify public release
+        if: steps.version.outputs.skip != 'true'
+        run: ./Scripts/verify-release.sh "${{ steps.version.outputs.version }}"
+
+      - name: Record results
+        if: always() && steps.version.outputs.skip != 'true'
+        run: |
+          {
+            echo "## Meth ${{ steps.version.outputs.version }}"
+            echo '```'; cat dist/checksums.txt 2>/dev/null || true; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Clean up credentials
+        if: always()
+        run: |
+          security delete-keychain "$RUNNER_TEMP/meth-signing.keychain-db" 2>/dev/null || true
+          rm -f "$RUNNER_TEMP/notary.p8" "$RUNNER_TEMP/sparkle.key" "$RUNNER_TEMP/cert.p12"

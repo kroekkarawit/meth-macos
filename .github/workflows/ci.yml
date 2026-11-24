@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: macos-26
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Select Xcode
+        run: |
+          XCODE="$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)"
+          sudo xcode-select -s "$XCODE"
+          xcodebuild -version
+
+      - name: Generate project
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Resolve Swift packages
+        run: xcodebuild -resolvePackageDependencies -project Meth.xcodeproj -scheme Meth -derivedDataPath build/DerivedData
+
+      - name: Static checks
+        run: |
+          for p in Meth/Resources/LaunchServices/*.plist; do plutil -lint "$p"; done
+          python3 -c 'import json; json.load(open("Meth/Resources/Localizable.xcstrings"))'
+          shellcheck --version >/dev/null 2>&1 || brew install shellcheck
+          shellcheck -x -S warning Scripts/*.sh
+          # No private keys or credentials in the tree.
+          ! git grep -nE -- '-----BEGIN [A-Z ]*PRIVATE KEY-----|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{30,}' -- . ':!docs/**' ':!.github/**'
+
+      - name: Unit tests and localization coverage
+        run: ./Scripts/test.sh
+
+      - name: Build universal Release (unsigned)
+        run: ./Scripts/build.sh Release
+
+      - name: Verify build outputs
+        run: |
+          APP=dist/Meth.app
+          test -x "$APP/Contents/MacOS/Meth"
+          test -x "$APP/Contents/MacOS/MethAgent"
+          test -x "$APP/Contents/MacOS/MethHelper"
+          test -x "$APP/Contents/Helpers/meth"
+          test -f "$APP/Contents/Library/LaunchAgents/io.github.kroekkarawit.Meth.Agent.plist"
+          test -f "$APP/Contents/Library/LaunchDaemons/io.github.kroekkarawit.Meth.Helper.plist"
+          for l in en th zh-Hans; do test -f "$APP/Contents/Resources/$l.lproj/Localizable.strings"; done
+          /usr/libexec/PlistBuddy -c 'Print :LSUIElement' "$APP/Contents/Info.plist" | grep -q true
+          "$APP/Contents/Helpers/meth" --version
+          "$APP/Contents/Helpers/meth" help --lang th > /dev/null
+          set +e; "$APP/Contents/Helpers/meth" high --for 10 --json; code=$?; set -e
+          test "$code" -eq 2
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: Meth-unsigned
+          path: dist/Meth.app
+          retention-days: 7
+
+  ui-tests:
+    # Menu bar UI tests need an interactive session with Accessibility access; hosted
+    # runners don't always provide it, so this job is informational.
+    runs-on: macos-26
+    continue-on-error: true
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Select Xcode
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)"
+      - name: UI tests
+        run: |
+          brew install xcodegen && xcodegen generate
+          xcodebuild -project Meth.xcodeproj -scheme Meth -derivedDataPath build/DerivedData -only-testing:MethUITests test

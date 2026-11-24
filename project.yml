@@ -1,0 +1,210 @@
+name: Meth
+options:
+  bundleIdPrefix: io.github.kroekkarawit
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+  groupSortPosition: top
+
+configFiles:
+  Debug: Config/Debug.xcconfig
+  Release: Config/Release.xcconfig
+
+packages:
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    exactVersion: 2.10.1
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    ENABLE_HARDENED_RUNTIME: YES
+    CODE_SIGN_STYLE: Manual
+    DEAD_CODE_STRIPPING: YES
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+
+targets:
+  MethCore:
+    type: library.static
+    platform: macOS
+    sources: [MethCore]
+    settings:
+      base:
+        PRODUCT_NAME: MethCore
+        SKIP_INSTALL: YES
+
+  Meth:
+    type: application
+    platform: macOS
+    sources:
+      - path: Meth
+        excludes: ["Resources/LaunchServices/**"]
+      - path: Meth/Resources/LaunchServices/io.github.kroekkarawit.Meth.Agent.plist
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Library/LaunchAgents
+      - path: Meth/Resources/LaunchServices/io.github.kroekkarawit.Meth.Helper.plist
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Library/LaunchDaemons
+    dependencies:
+      - target: MethCore
+      - package: Sparkle
+      - target: MethAgent
+        embed: true
+        codeSign: true
+        copy:
+          destination: executables
+      - target: MethHelper
+        embed: true
+        codeSign: true
+        copy:
+          destination: executables
+      - target: MethCLI
+        embed: true
+        codeSign: true
+        copy:
+          destination: wrapper
+          subpath: Contents/Helpers
+    info:
+      path: Meth/Support/Info.plist
+      properties:
+        CFBundleName: Meth
+        CFBundleDisplayName: Meth
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations: [en, th, zh-Hans]
+        LSUIElement: true
+        LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+        LSApplicationCategoryType: public.app-category.utilities
+        NSHumanReadableCopyright: "Copyright © 2026 Meth contributors. MIT License."
+        SUFeedURL: https://kroekkarawit.github.io/meth-macos/appcast.xml
+        SUPublicEDKey: $(SPARKLE_PUBLIC_ED_KEY)
+        SUEnableAutomaticChecks: true
+        SUScheduledCheckInterval: 86400
+        SUVerifyUpdateBeforeExtraction: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.kroekkarawit.Meth
+        PRODUCT_NAME: Meth
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        COMBINE_HIDPI_IMAGES: YES
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
+        ENABLE_APP_SANDBOX: NO
+
+  MethAgent:
+    type: tool
+    platform: macOS
+    sources: [MethAgent]
+    dependencies:
+      - target: MethCore
+    info:
+      path: MethAgent/Info.plist
+      properties:
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleName: MethAgent
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.kroekkarawit.Meth.Agent
+        PRODUCT_NAME: MethAgent
+        CREATE_INFOPLIST_SECTION_IN_BINARY: YES
+        SKIP_INSTALL: YES
+
+  MethHelper:
+    type: tool
+    platform: macOS
+    sources: [MethHelper]
+    dependencies:
+      - target: MethCore
+    info:
+      path: MethHelper/Info.plist
+      properties:
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleName: MethHelper
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.kroekkarawit.Meth.Helper
+        PRODUCT_NAME: MethHelper
+        CREATE_INFOPLIST_SECTION_IN_BINARY: YES
+        SKIP_INSTALL: YES
+
+  MethCLI:
+    type: tool
+    platform: macOS
+    sources: [MethCLI]
+    dependencies:
+      - target: MethCore
+    info:
+      path: MethCLI/Info.plist
+      properties:
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleName: meth
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.kroekkarawit.Meth.CLI
+        PRODUCT_NAME: meth
+        CREATE_INFOPLIST_SECTION_IN_BINARY: YES
+        SKIP_INSTALL: YES
+
+  MethTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources: [MethTests]
+    dependencies:
+      - target: MethCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.kroekkarawit.Meth.Tests
+        GENERATE_INFOPLIST_FILE: YES
+
+  MethUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources: [MethUITests]
+    dependencies:
+      - target: Meth
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.kroekkarawit.Meth.UITests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: Meth
+
+schemes:
+  Meth:
+    build:
+      targets:
+        Meth: all
+        MethCLI: all
+        MethTests: [test]
+        MethUITests: [test]
+    test:
+      config: Debug
+      targets:
+        - MethTests
+        - name: MethUITests
+          skipped: false
+      gatherCoverageData: false
+    run:
+      config: Debug
+    archive:
+      config: Release
+  MethUnitTests:
+    build:
+      targets:
+        MethCore: all
+        MethTests: [test]
+    test:
+      config: Debug
+      targets: [MethTests]

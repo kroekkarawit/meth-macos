@@ -1,0 +1,15 @@
+name: Feature request
+description: Suggest an improvement (Meth stays deliberately minimal)
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do that Meth makes hard?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal

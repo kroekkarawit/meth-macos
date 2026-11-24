@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>io.github.kroekkarawit.Meth.Agent</string>
+	<key>BundleProgram</key>
+	<string>Contents/MacOS/MethAgent</string>
+	<key>MachServices</key>
+	<dict>
+		<key>io.github.kroekkarawit.Meth.Agent</key>
+		<true/>
+	</dict>
+	<key>AssociatedBundleIdentifiers</key>
+	<array>
+		<string>io.github.kroekkarawit.Meth</string>
+	</array>
+	<!-- Start at login so a timed session can resume after a restart; the agent exits
+	     after 30 s when nothing is active, and launchd restarts it on demand. -->
+	<key>RunAtLoad</key>
+	<true/>
+	<!-- Restart after a crash (non-zero exit) so timed sessions keep being enforced. -->
+	<key>KeepAlive</key>
+	<dict>
+		<key>SuccessfulExit</key>
+		<false/>
+	</dict>
+	<key>ProcessType</key>
+	<string>Background</string>
+	<key>LimitLoadToSessionType</key>
+	<string>Aqua</string>
+</dict>
+</plist>

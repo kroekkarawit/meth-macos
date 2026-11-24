@@ -1,0 +1,1325 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D76CF57628808C380E0FD5A /* io.github.kroekkarawit.Meth.Agent.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7F36F9AFCD9684AE3079D139 /* io.github.kroekkarawit.Meth.Agent.plist */; };
+		128C8C826E6FCBB6845ECA02 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E97652C139996617668679 /* main.swift */; };
+		17E946BFA3546D6AAD006FAE /* TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45083A509A4FAAAB4465B3A /* TestDoubles.swift */; };
+		208EBFEA12EBB5FF4C532D6D /* ParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7454C83524CBD5708EC63B5E /* ParsingTests.swift */; };
+		2CB985188C6405BEF6D0220E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADDB423DBD48E8F9D6DCB6A /* main.swift */; };
+		2F25E3AD85A593C591CF32C0 /* PowerAssertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EAF46B38576223B7CE771A /* PowerAssertions.swift */; };
+		33C8564ABAAE77DABD2695B8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75C07F32BC7D959EFB22664 /* main.swift */; };
+		3C5FD7D451190C08EC09397C /* MethAgent in Embed Dependencies */ = {isa = PBXBuildFile; fileRef = 8292B98CC8838E940D94518A /* MethAgent */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3C6C4417060CE695D65A5C2B /* CLIInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA7CF5A402DEFC36C54BA81 /* CLIInstaller.swift */; };
+		509CA79D399778F243530A2A /* libMethCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC38B24B46269C5D46DA47E0 /* libMethCore.a */; };
+		55230D2392D225AE90128554 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B3A419C5A2EDAF55226F2D /* Clock.swift */; };
+		56147185108FFCD838B8F703 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E160F7BE3783F7C72BDC6BF1 /* Assets.xcassets */; };
+		59088E8E371AD9DED0A34C0B /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D3226DB1A30E1F1E0D7A04 /* Session.swift */; };
+		62F501C9C9F5CE9B19285748 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E07F671A82461886A3FD8CF /* LanguageManager.swift */; };
+		635F8D11C0F3485FF7BD3881 /* libMethCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC38B24B46269C5D46DA47E0 /* libMethCore.a */; };
+		6FC461D12099F02B8A2054C4 /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674640454BA9C83C9F2A51F /* UpdateManager.swift */; };
+		75EB4C95F096DCB552CE1EB0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C586C86238ECA572C0BAF19 /* main.swift */; };
+		772D7CD03EB181213DF8CCE1 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB3E72E38F408373896A435 /* Identifiers.swift */; };
+		7AB7511B702C18C415ED035F /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 16A6043ED3C2B52593B88083 /* Sparkle */; };
+		7F09B76EE8535C2C198FA34D /* OverdoseEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811E6B7DDC22BF725C9779AE /* OverdoseEngine.swift */; };
+		818A135FED2EF3415F72C646 /* OverdoseEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B32B231D7A8FD6243A1DE85 /* OverdoseEngineTests.swift */; };
+		81D9AA63FBE99847D2946906 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D71EFE17C538F65859194DF2 /* Localizable.xcstrings */; };
+		8334324E6280A17111901C31 /* MethCLI in Embed Dependencies */ = {isa = PBXBuildFile; fileRef = 9699E8183FA56C3CC12CC980 /* MethCLI */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		87F9575AFFD7562862655CFC /* libMethCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC38B24B46269C5D46DA47E0 /* libMethCore.a */; };
+		89AF50C25965029977C231F7 /* MethDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9CBBCD61E67D1EAD145B97 /* MethDuration.swift */; };
+		8D1AF4B6508AB3EFD54728E4 /* SessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDDF020670D162C029A9CAB /* SessionModel.swift */; };
+		9158E0516ABEB007E3570DB8 /* PopoverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99D2F61D0F294349E90EC8 /* PopoverUITests.swift */; };
+		A1FA84973ABF6F8ECFEFB43C /* OutputAndPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFA9D468D25DBCB8EE381B8 /* OutputAndPersistenceTests.swift */; };
+		A342B564B0E3E9DB6BE76B17 /* IPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344FF42F50F0B6F4BFA0CF98 /* IPC.swift */; };
+		B1A25C12B341F1B68B56C0F8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BACFF893360868AC2FE3B7 /* Persistence.swift */; };
+		B1F6CC3A568D23F689E6EE0C /* libMethCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC38B24B46269C5D46DA47E0 /* libMethCore.a */; };
+		C0E1BF98F431B4FCAE612D54 /* io.github.kroekkarawit.Meth.Helper.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FA731036BB000C18D997C38 /* io.github.kroekkarawit.Meth.Helper.plist */; };
+		C3D977C3CF01060739D65880 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B969525A5A7E2A07C602AAB /* SessionController.swift */; };
+		CB21EFAEB337712F07BA0968 /* XPCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0CCE92FA8D5C7F0A2554E2 /* XPCClient.swift */; };
+		CB4F22E39EB89B2DF2070293 /* CLIStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9F012E27CF2F4C2D466B /* CLIStrings.swift */; };
+		CD2DB4A0A15F6836CCCF3FE4 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4A2EDEA8857A229F17133F /* MenuBarView.swift */; };
+		D4868A6367B42B0B89CFBE4A /* BackgroundServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7F050006CD8727A53BA0A /* BackgroundServices.swift */; };
+		E6F5E72B9DF183593AF75AA8 /* SyringeGlyph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2098E4E9AD461C0B3CEA9CB9 /* SyringeGlyph.swift */; };
+		E77D558C92BEFA384C07686F /* SleepMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A57A4E73E6DBF4308812ADB /* SleepMode.swift */; };
+		E99F1D0A1AF7417C5664758B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B4F03B7FC5FFC12DAB993B /* AppController.swift */; };
+		EB0DCB6E77EACED404D8EABB /* CodeSigning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B99BDA9010274CAE9524180 /* CodeSigning.swift */; };
+		EC47E565D87D7B2FA546A93A /* MenuBarIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C969499491A8CE5F2D4D2C /* MenuBarIcon.swift */; };
+		EF3D5696C8C4F64F1057F55E /* MethError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0469626D773F19D515F511 /* MethError.swift */; };
+		FA3F11B6746AD37EDF51B7D3 /* CLICommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820C5B52D5FCE26EAECD09AC /* CLICommand.swift */; };
+		FBBABF15BB0C0AD59573304F /* MethHelper in Embed Dependencies */ = {isa = PBXBuildFile; fileRef = BA59676FD3155856DAFD6A44 /* MethHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FF3AC4866AA607FDB4460412 /* SessionControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F7EBB83F63AD842DCE393B /* SessionControllerTests.swift */; };
+		FF4CB45B796644A24C44400F /* libMethCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC38B24B46269C5D46DA47E0 /* libMethCore.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		185F0922C7E8BDB593AD8C02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF08953597F308DD9AB48C98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 31DC03EACC4D0D26320CB56D;
+			remoteInfo = MethCore;
+		};
+		1EC276C0289E2D59B0352B58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF08953597F308DD9AB48C98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 678D5ED08445B3020FAB048B;
+			remoteInfo = MethCLI;
+		};
+		1FE392D1E50353E3215B41B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF08953597F308DD9AB48C98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2188E4F154AD200AF39E485;
+			remoteInfo = MethAgent;
+		};
+		5A31A25DB87AAD68C86C1556 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF08953597F308DD9AB48C98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 31DC03EACC4D0D26320CB56D;
+			remoteInfo = MethCore;
+		};
+		AA8785845503B8A147F4F020 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF08953597F308DD9AB48C98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 31DC03EACC4D0D26320CB56D;
+			remoteInfo = MethCore;
+		};
+		C17FC98F6E665873F45E7F01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF08953597F308DD9AB48C98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 31DC03EACC4D0D26320CB56D;
+			remoteInfo = MethCore;
+		};
+		E0D77A1A6A87C0B0CFE4777B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF08953597F308DD9AB48C98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CF248895297348F9CDB2603A;
+			remoteInfo = MethHelper;
+		};
+		E7C11821A443CAB324A7229B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF08953597F308DD9AB48C98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 31DC03EACC4D0D26320CB56D;
+			remoteInfo = MethCore;
+		};
+		F38962CF367D401CCDD86462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF08953597F308DD9AB48C98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 266894EB08DEA0092B405481;
+			remoteInfo = Meth;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		21807DEA106F13DA481966C3 /* Embed Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				3C5FD7D451190C08EC09397C /* MethAgent in Embed Dependencies */,
+				FBBABF15BB0C0AD59573304F /* MethHelper in Embed Dependencies */,
+			);
+			name = "Embed Dependencies";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F0E8D1F6BD1086BC1D95A3C /* Embed Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Helpers;
+			dstSubfolderSpec = 1;
+			files = (
+				8334324E6280A17111901C31 /* MethCLI in Embed Dependencies */,
+			);
+			name = "Embed Dependencies";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E22EDF86A1E8CF39C776F605 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchDaemons;
+			dstSubfolderSpec = 1;
+			files = (
+				C0E1BF98F431B4FCAE612D54 /* io.github.kroekkarawit.Meth.Helper.plist in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0B6C7BB89AEC9CF5AAC5B99 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchAgents;
+			dstSubfolderSpec = 1;
+			files = (
+				0D76CF57628808C380E0FD5A /* io.github.kroekkarawit.Meth.Agent.plist in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		04382D5D4A42F49B430F07AC /* MethTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MethTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		09B4F03B7FC5FFC12DAB993B /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
+		09E97652C139996617668679 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		1ADDB423DBD48E8F9D6DCB6A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		2098E4E9AD461C0B3CEA9CB9 /* SyringeGlyph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyringeGlyph.swift; sourceTree = "<group>"; };
+		2D0469626D773F19D515F511 /* MethError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethError.swift; sourceTree = "<group>"; };
+		2FE7F050006CD8727A53BA0A /* BackgroundServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundServices.swift; sourceTree = "<group>"; };
+		32BACFF893360868AC2FE3B7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		344FF42F50F0B6F4BFA0CF98 /* IPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPC.swift; sourceTree = "<group>"; };
+		3BB3E72E38F408373896A435 /* Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiers.swift; sourceTree = "<group>"; };
+		3C586C86238ECA572C0BAF19 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		421A9F012E27CF2F4C2D466B /* CLIStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIStrings.swift; sourceTree = "<group>"; };
+		42D3226DB1A30E1F1E0D7A04 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		57EAF46B38576223B7CE771A /* PowerAssertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerAssertions.swift; sourceTree = "<group>"; };
+		58F0E33749801A7AE2A82D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6B99BDA9010274CAE9524180 /* CodeSigning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSigning.swift; sourceTree = "<group>"; };
+		6C9CBBCD61E67D1EAD145B97 /* MethDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethDuration.swift; sourceTree = "<group>"; };
+		7454C83524CBD5708EC63B5E /* ParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingTests.swift; sourceTree = "<group>"; };
+		76E7EC289ABC44DDF9C1E854 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		7BFA9D468D25DBCB8EE381B8 /* OutputAndPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputAndPersistenceTests.swift; sourceTree = "<group>"; };
+		7D0CCE92FA8D5C7F0A2554E2 /* XPCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCClient.swift; sourceTree = "<group>"; };
+		7E07F671A82461886A3FD8CF /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
+		7F36F9AFCD9684AE3079D139 /* io.github.kroekkarawit.Meth.Agent.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = io.github.kroekkarawit.Meth.Agent.plist; sourceTree = "<group>"; };
+		811E6B7DDC22BF725C9779AE /* OverdoseEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverdoseEngine.swift; sourceTree = "<group>"; };
+		820C5B52D5FCE26EAECD09AC /* CLICommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLICommand.swift; sourceTree = "<group>"; };
+		8292B98CC8838E940D94518A /* MethAgent */ = {isa = PBXFileReference; includeInIndex = 0; path = MethAgent; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A57A4E73E6DBF4308812ADB /* SleepMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepMode.swift; sourceTree = "<group>"; };
+		8B969525A5A7E2A07C602AAB /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
+		8FA731036BB000C18D997C38 /* io.github.kroekkarawit.Meth.Helper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = io.github.kroekkarawit.Meth.Helper.plist; sourceTree = "<group>"; };
+		9674640454BA9C83C9F2A51F /* UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateManager.swift; sourceTree = "<group>"; };
+		9699E8183FA56C3CC12CC980 /* MethCLI */ = {isa = PBXFileReference; includeInIndex = 0; path = MethCLI; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B32B231D7A8FD6243A1DE85 /* OverdoseEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverdoseEngineTests.swift; sourceTree = "<group>"; };
+		9FA7CF5A402DEFC36C54BA81 /* CLIInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIInstaller.swift; sourceTree = "<group>"; };
+		AB9F5378392FB6CB7F23ADCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B1C969499491A8CE5F2D4D2C /* MenuBarIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarIcon.swift; sourceTree = "<group>"; };
+		B9F7EBB83F63AD842DCE393B /* SessionControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionControllerTests.swift; sourceTree = "<group>"; };
+		BA59676FD3155856DAFD6A44 /* MethHelper */ = {isa = PBXFileReference; includeInIndex = 0; path = MethHelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD4A2EDEA8857A229F17133F /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		C0E1EE35413B53537817A930 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C776DC2835E03474A8D4470E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D45083A509A4FAAAB4465B3A /* TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDoubles.swift; sourceTree = "<group>"; };
+		D71EFE17C538F65859194DF2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		D75C07F32BC7D959EFB22664 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		DC43EFBF4BCFE339C2E92404 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		DD674486B875B1DEDCEFEA86 /* Meth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meth.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDDDF020670D162C029A9CAB /* SessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionModel.swift; sourceTree = "<group>"; };
+		E160F7BE3783F7C72BDC6BF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E2099392A8A487191BE4FA0C /* MethUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MethUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0B3A419C5A2EDAF55226F2D /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		FA99D2F61D0F294349E90EC8 /* PopoverUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverUITests.swift; sourceTree = "<group>"; };
+		FC38B24B46269C5D46DA47E0 /* libMethCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMethCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		05286DE3457FFED7E7E00367 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87F9575AFFD7562862655CFC /* libMethCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31D776FA513611F3EF3A4DBC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF4CB45B796644A24C44400F /* libMethCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C4B5E5DC2AA53DBFF19193C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1F6CC3A568D23F689E6EE0C /* libMethCore.a in Frameworks */,
+				7AB7511B702C18C415ED035F /* Sparkle in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57FB8AA279667A19848CB660 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				635F8D11C0F3485FF7BD3881 /* libMethCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC95ADD09780E0CE51B59205 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				509CA79D399778F243530A2A /* libMethCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		190DAE19439EBE5E14829021 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				58F0E33749801A7AE2A82D34 /* Info.plist */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		1ACF2918AA0CC9495235BD83 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				09B4F03B7FC5FFC12DAB993B /* AppController.swift */,
+				D75C07F32BC7D959EFB22664 /* main.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		3CE327BDEAC2F97CB1E5A443 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4F3C2DABCA5F3D7A604680EF /* LaunchServices */,
+				D71EFE17C538F65859194DF2 /* Localizable.xcstrings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4F3C2DABCA5F3D7A604680EF /* LaunchServices */ = {
+			isa = PBXGroup;
+			children = (
+				7F36F9AFCD9684AE3079D139 /* io.github.kroekkarawit.Meth.Agent.plist */,
+				8FA731036BB000C18D997C38 /* io.github.kroekkarawit.Meth.Helper.plist */,
+			);
+			path = LaunchServices;
+			sourceTree = "<group>";
+		};
+		4F7DBCB2CC21462D7516B668 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				DC43EFBF4BCFE339C2E92404 /* Debug.xcconfig */,
+				76E7EC289ABC44DDF9C1E854 /* Release.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		4FA52B8D5174808F70D9CE62 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2FE7F050006CD8727A53BA0A /* BackgroundServices.swift */,
+				9FA7CF5A402DEFC36C54BA81 /* CLIInstaller.swift */,
+				7E07F671A82461886A3FD8CF /* LanguageManager.swift */,
+				DDDDF020670D162C029A9CAB /* SessionModel.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		552FC990185A90DD2EDED820 /* Meth */ = {
+			isa = PBXGroup;
+			children = (
+				1ACF2918AA0CC9495235BD83 /* App */,
+				3CE327BDEAC2F97CB1E5A443 /* Resources */,
+				4FA52B8D5174808F70D9CE62 /* Services */,
+				190DAE19439EBE5E14829021 /* Support */,
+				8E34D2DE2DD18C7CB5BD852A /* UI */,
+				756C769B5A2BFD33FF034C80 /* Updates */,
+				E160F7BE3783F7C72BDC6BF1 /* Assets.xcassets */,
+			);
+			path = Meth;
+			sourceTree = "<group>";
+		};
+		756C769B5A2BFD33FF034C80 /* Updates */ = {
+			isa = PBXGroup;
+			children = (
+				9674640454BA9C83C9F2A51F /* UpdateManager.swift */,
+			);
+			path = Updates;
+			sourceTree = "<group>";
+		};
+		7577B717C44CCC47FE7381B1 /* MethCLI */ = {
+			isa = PBXGroup;
+			children = (
+				C0E1EE35413B53537817A930 /* Info.plist */,
+				09E97652C139996617668679 /* main.swift */,
+			);
+			path = MethCLI;
+			sourceTree = "<group>";
+		};
+		8E34D2DE2DD18C7CB5BD852A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B1C969499491A8CE5F2D4D2C /* MenuBarIcon.swift */,
+				BD4A2EDEA8857A229F17133F /* MenuBarView.swift */,
+				2098E4E9AD461C0B3CEA9CB9 /* SyringeGlyph.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		ABB5FC2797C9EF8FE0CF26D3 = {
+			isa = PBXGroup;
+			children = (
+				4F7DBCB2CC21462D7516B668 /* Config */,
+				552FC990185A90DD2EDED820 /* Meth */,
+				BB589D847C47F5C25A89A3EE /* MethAgent */,
+				7577B717C44CCC47FE7381B1 /* MethCLI */,
+				FBE3D9F04716563FA117386C /* MethCore */,
+				FE8A9848B634E211EF2D3DD8 /* MethHelper */,
+				EFD1B69FB1DC3CD98FAB1FF7 /* MethTests */,
+				CE614D85BE1B31E48F61C8F4 /* MethUITests */,
+				F521AB47F998CE2315D753A0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BB589D847C47F5C25A89A3EE /* MethAgent */ = {
+			isa = PBXGroup;
+			children = (
+				AB9F5378392FB6CB7F23ADCB /* Info.plist */,
+				1ADDB423DBD48E8F9D6DCB6A /* main.swift */,
+			);
+			path = MethAgent;
+			sourceTree = "<group>";
+		};
+		CE614D85BE1B31E48F61C8F4 /* MethUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FA99D2F61D0F294349E90EC8 /* PopoverUITests.swift */,
+			);
+			path = MethUITests;
+			sourceTree = "<group>";
+		};
+		EFD1B69FB1DC3CD98FAB1FF7 /* MethTests */ = {
+			isa = PBXGroup;
+			children = (
+				7BFA9D468D25DBCB8EE381B8 /* OutputAndPersistenceTests.swift */,
+				9B32B231D7A8FD6243A1DE85 /* OverdoseEngineTests.swift */,
+				7454C83524CBD5708EC63B5E /* ParsingTests.swift */,
+				B9F7EBB83F63AD842DCE393B /* SessionControllerTests.swift */,
+				D45083A509A4FAAAB4465B3A /* TestDoubles.swift */,
+			);
+			path = MethTests;
+			sourceTree = "<group>";
+		};
+		F521AB47F998CE2315D753A0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FC38B24B46269C5D46DA47E0 /* libMethCore.a */,
+				DD674486B875B1DEDCEFEA86 /* Meth.app */,
+				8292B98CC8838E940D94518A /* MethAgent */,
+				9699E8183FA56C3CC12CC980 /* MethCLI */,
+				BA59676FD3155856DAFD6A44 /* MethHelper */,
+				04382D5D4A42F49B430F07AC /* MethTests.xctest */,
+				E2099392A8A487191BE4FA0C /* MethUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FBE3D9F04716563FA117386C /* MethCore */ = {
+			isa = PBXGroup;
+			children = (
+				820C5B52D5FCE26EAECD09AC /* CLICommand.swift */,
+				421A9F012E27CF2F4C2D466B /* CLIStrings.swift */,
+				F0B3A419C5A2EDAF55226F2D /* Clock.swift */,
+				6B99BDA9010274CAE9524180 /* CodeSigning.swift */,
+				3BB3E72E38F408373896A435 /* Identifiers.swift */,
+				344FF42F50F0B6F4BFA0CF98 /* IPC.swift */,
+				6C9CBBCD61E67D1EAD145B97 /* MethDuration.swift */,
+				2D0469626D773F19D515F511 /* MethError.swift */,
+				811E6B7DDC22BF725C9779AE /* OverdoseEngine.swift */,
+				32BACFF893360868AC2FE3B7 /* Persistence.swift */,
+				57EAF46B38576223B7CE771A /* PowerAssertions.swift */,
+				42D3226DB1A30E1F1E0D7A04 /* Session.swift */,
+				8B969525A5A7E2A07C602AAB /* SessionController.swift */,
+				8A57A4E73E6DBF4308812ADB /* SleepMode.swift */,
+				7D0CCE92FA8D5C7F0A2554E2 /* XPCClient.swift */,
+			);
+			path = MethCore;
+			sourceTree = "<group>";
+		};
+		FE8A9848B634E211EF2D3DD8 /* MethHelper */ = {
+			isa = PBXGroup;
+			children = (
+				C776DC2835E03474A8D4470E /* Info.plist */,
+				3C586C86238ECA572C0BAF19 /* main.swift */,
+			);
+			path = MethHelper;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		266894EB08DEA0092B405481 /* Meth */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A46EBD6E56DEE14F07A4337 /* Build configuration list for PBXNativeTarget "Meth" */;
+			buildPhases = (
+				46E8BCDC32E5FAAD29C4833F /* Sources */,
+				3E0F18DDF4F747996B8F9AE8 /* Resources */,
+				F0B6C7BB89AEC9CF5AAC5B99 /* CopyFiles */,
+				E22EDF86A1E8CF39C776F605 /* CopyFiles */,
+				4C4B5E5DC2AA53DBFF19193C /* Frameworks */,
+				21807DEA106F13DA481966C3 /* Embed Dependencies */,
+				6F0E8D1F6BD1086BC1D95A3C /* Embed Dependencies */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				867F78A5E12C853E0BC8D1BE /* PBXTargetDependency */,
+				42E7484F51154D9EC647AC7A /* PBXTargetDependency */,
+				63814E866A8F3E20BCCCA6B0 /* PBXTargetDependency */,
+				8876C357D8069B3497392EFE /* PBXTargetDependency */,
+			);
+			name = Meth;
+			packageProductDependencies = (
+				16A6043ED3C2B52593B88083 /* Sparkle */,
+			);
+			productName = Meth;
+			productReference = DD674486B875B1DEDCEFEA86 /* Meth.app */;
+			productType = "com.apple.product-type.application";
+		};
+		31DC03EACC4D0D26320CB56D /* MethCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 239EE03A6EB22BD35CD5F37B /* Build configuration list for PBXNativeTarget "MethCore" */;
+			buildPhases = (
+				DB6F0B59E74B295CBB6C268F /* Sources */,
+				81A92E314FDEC6021EB5E4D2 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MethCore;
+			packageProductDependencies = (
+			);
+			productName = MethCore;
+			productReference = FC38B24B46269C5D46DA47E0 /* libMethCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		3D61714E4C83B38A9C9377BC /* MethTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D6AE36721799C278E5103A00 /* Build configuration list for PBXNativeTarget "MethTests" */;
+			buildPhases = (
+				EA0888D6005569A3E84DF803 /* Sources */,
+				05286DE3457FFED7E7E00367 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0B55DF4CDF4536E40C338153 /* PBXTargetDependency */,
+			);
+			name = MethTests;
+			packageProductDependencies = (
+			);
+			productName = MethTests;
+			productReference = 04382D5D4A42F49B430F07AC /* MethTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		678D5ED08445B3020FAB048B /* MethCLI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF6E2975ED1F74CE37FCB912 /* Build configuration list for PBXNativeTarget "MethCLI" */;
+			buildPhases = (
+				E9E81783445FA4A0901F6A86 /* Sources */,
+				57FB8AA279667A19848CB660 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E03173AC7E7C81BDAC97DCC5 /* PBXTargetDependency */,
+			);
+			name = MethCLI;
+			packageProductDependencies = (
+			);
+			productName = MethCLI;
+			productReference = 9699E8183FA56C3CC12CC980 /* MethCLI */;
+			productType = "com.apple.product-type.tool";
+		};
+		CA48A212D380BE16CF24CEA2 /* MethUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D03627F823AEF999D860D5A /* Build configuration list for PBXNativeTarget "MethUITests" */;
+			buildPhases = (
+				30ED019BA3EDFB1BA0EDD21E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				365DDCBA2A348246561E801E /* PBXTargetDependency */,
+			);
+			name = MethUITests;
+			packageProductDependencies = (
+			);
+			productName = MethUITests;
+			productReference = E2099392A8A487191BE4FA0C /* MethUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		CF248895297348F9CDB2603A /* MethHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E122B11788BD69E59A6A0F6 /* Build configuration list for PBXNativeTarget "MethHelper" */;
+			buildPhases = (
+				1699D22F1DC447759B4E9B01 /* Sources */,
+				31D776FA513611F3EF3A4DBC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9C13C3621B9BB9D68D54C011 /* PBXTargetDependency */,
+			);
+			name = MethHelper;
+			packageProductDependencies = (
+			);
+			productName = MethHelper;
+			productReference = BA59676FD3155856DAFD6A44 /* MethHelper */;
+			productType = "com.apple.product-type.tool";
+		};
+		D2188E4F154AD200AF39E485 /* MethAgent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42B9EADA7EF6C491A9AC8672 /* Build configuration list for PBXNativeTarget "MethAgent" */;
+			buildPhases = (
+				450BB0A740D823A21F56E033 /* Sources */,
+				CC95ADD09780E0CE51B59205 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C219441185ED3E6DCB27FC93 /* PBXTargetDependency */,
+			);
+			name = MethAgent;
+			packageProductDependencies = (
+			);
+			productName = MethAgent;
+			productReference = 8292B98CC8838E940D94518A /* MethAgent */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EF08953597F308DD9AB48C98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					266894EB08DEA0092B405481 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					31DC03EACC4D0D26320CB56D = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					3D61714E4C83B38A9C9377BC = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					678D5ED08445B3020FAB048B = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					CA48A212D380BE16CF24CEA2 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+						TestTargetID = 266894EB08DEA0092B405481;
+					};
+					CF248895297348F9CDB2603A = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					D2188E4F154AD200AF39E485 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 3AC3CA953650BB311E95BF56 /* Build configuration list for PBXProject "Meth" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				th,
+				"zh-Hans",
+			);
+			mainGroup = ABB5FC2797C9EF8FE0CF26D3;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				37BEFA7D554D6AD1B6D74578 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F521AB47F998CE2315D753A0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				31DC03EACC4D0D26320CB56D /* MethCore */,
+				266894EB08DEA0092B405481 /* Meth */,
+				D2188E4F154AD200AF39E485 /* MethAgent */,
+				CF248895297348F9CDB2603A /* MethHelper */,
+				678D5ED08445B3020FAB048B /* MethCLI */,
+				3D61714E4C83B38A9C9377BC /* MethTests */,
+				CA48A212D380BE16CF24CEA2 /* MethUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3E0F18DDF4F747996B8F9AE8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56147185108FFCD838B8F703 /* Assets.xcassets in Resources */,
+				81D9AA63FBE99847D2946906 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		81A92E314FDEC6021EB5E4D2 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1699D22F1DC447759B4E9B01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75EB4C95F096DCB552CE1EB0 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30ED019BA3EDFB1BA0EDD21E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9158E0516ABEB007E3570DB8 /* PopoverUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		450BB0A740D823A21F56E033 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CB985188C6405BEF6D0220E /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46E8BCDC32E5FAAD29C4833F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E99F1D0A1AF7417C5664758B /* AppController.swift in Sources */,
+				D4868A6367B42B0B89CFBE4A /* BackgroundServices.swift in Sources */,
+				3C6C4417060CE695D65A5C2B /* CLIInstaller.swift in Sources */,
+				62F501C9C9F5CE9B19285748 /* LanguageManager.swift in Sources */,
+				EC47E565D87D7B2FA546A93A /* MenuBarIcon.swift in Sources */,
+				CD2DB4A0A15F6836CCCF3FE4 /* MenuBarView.swift in Sources */,
+				8D1AF4B6508AB3EFD54728E4 /* SessionModel.swift in Sources */,
+				E6F5E72B9DF183593AF75AA8 /* SyringeGlyph.swift in Sources */,
+				6FC461D12099F02B8A2054C4 /* UpdateManager.swift in Sources */,
+				33C8564ABAAE77DABD2695B8 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB6F0B59E74B295CBB6C268F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA3F11B6746AD37EDF51B7D3 /* CLICommand.swift in Sources */,
+				CB4F22E39EB89B2DF2070293 /* CLIStrings.swift in Sources */,
+				55230D2392D225AE90128554 /* Clock.swift in Sources */,
+				EB0DCB6E77EACED404D8EABB /* CodeSigning.swift in Sources */,
+				A342B564B0E3E9DB6BE76B17 /* IPC.swift in Sources */,
+				772D7CD03EB181213DF8CCE1 /* Identifiers.swift in Sources */,
+				89AF50C25965029977C231F7 /* MethDuration.swift in Sources */,
+				EF3D5696C8C4F64F1057F55E /* MethError.swift in Sources */,
+				7F09B76EE8535C2C198FA34D /* OverdoseEngine.swift in Sources */,
+				B1A25C12B341F1B68B56C0F8 /* Persistence.swift in Sources */,
+				2F25E3AD85A593C591CF32C0 /* PowerAssertions.swift in Sources */,
+				59088E8E371AD9DED0A34C0B /* Session.swift in Sources */,
+				C3D977C3CF01060739D65880 /* SessionController.swift in Sources */,
+				E77D558C92BEFA384C07686F /* SleepMode.swift in Sources */,
+				CB21EFAEB337712F07BA0968 /* XPCClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9E81783445FA4A0901F6A86 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				128C8C826E6FCBB6845ECA02 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA0888D6005569A3E84DF803 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1FA84973ABF6F8ECFEFB43C /* OutputAndPersistenceTests.swift in Sources */,
+				818A135FED2EF3415F72C646 /* OverdoseEngineTests.swift in Sources */,
+				208EBFEA12EBB5FF4C532D6D /* ParsingTests.swift in Sources */,
+				FF3AC4866AA607FDB4460412 /* SessionControllerTests.swift in Sources */,
+				17E946BFA3546D6AAD006FAE /* TestDoubles.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0B55DF4CDF4536E40C338153 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 31DC03EACC4D0D26320CB56D /* MethCore */;
+			targetProxy = E7C11821A443CAB324A7229B /* PBXContainerItemProxy */;
+		};
+		365DDCBA2A348246561E801E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 266894EB08DEA0092B405481 /* Meth */;
+			targetProxy = F38962CF367D401CCDD86462 /* PBXContainerItemProxy */;
+		};
+		42E7484F51154D9EC647AC7A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D2188E4F154AD200AF39E485 /* MethAgent */;
+			targetProxy = 1FE392D1E50353E3215B41B8 /* PBXContainerItemProxy */;
+		};
+		63814E866A8F3E20BCCCA6B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CF248895297348F9CDB2603A /* MethHelper */;
+			targetProxy = E0D77A1A6A87C0B0CFE4777B /* PBXContainerItemProxy */;
+		};
+		867F78A5E12C853E0BC8D1BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 31DC03EACC4D0D26320CB56D /* MethCore */;
+			targetProxy = 5A31A25DB87AAD68C86C1556 /* PBXContainerItemProxy */;
+		};
+		8876C357D8069B3497392EFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 678D5ED08445B3020FAB048B /* MethCLI */;
+			targetProxy = 1EC276C0289E2D59B0352B58 /* PBXContainerItemProxy */;
+		};
+		9C13C3621B9BB9D68D54C011 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 31DC03EACC4D0D26320CB56D /* MethCore */;
+			targetProxy = C17FC98F6E665873F45E7F01 /* PBXContainerItemProxy */;
+		};
+		C219441185ED3E6DCB27FC93 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 31DC03EACC4D0D26320CB56D /* MethCore */;
+			targetProxy = AA8785845503B8A147F4F020 /* PBXContainerItemProxy */;
+		};
+		E03173AC7E7C81BDAC97DCC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 31DC03EACC4D0D26320CB56D /* MethCore */;
+			targetProxy = 185F0922C7E8BDB593AD8C02 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1218964C5336F52D6C0E9502 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				INFOPLIST_FILE = MethAgent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth.Agent;
+				PRODUCT_NAME = MethAgent;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		177D4D896A7D7B94C01885F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC43EFBF4BCFE339C2E92404 /* Debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		2662F4184B680E34F141839B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76E7EC289ABC44DDF9C1E854 /* Release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		3167380C63878A42E1578B3A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				INFOPLIST_FILE = MethCLI/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth.CLI;
+				PRODUCT_NAME = meth;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3B078E7C6562CC10A32DB2F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth.UITests;
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = Meth;
+			};
+			name = Release;
+		};
+		67D98106C1A1F425737F0948 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				INFOPLIST_FILE = MethHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth.Helper;
+				PRODUCT_NAME = MethHelper;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6D063E35D8E189A34ECC0B21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = NO;
+				INFOPLIST_FILE = Meth/Support/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth;
+				PRODUCT_NAME = Meth;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7445583E98198684566CB009 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				INFOPLIST_FILE = MethAgent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth.Agent;
+				PRODUCT_NAME = MethAgent;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7BEB5A9E2B545CCD6BB728F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.MethCore;
+				PRODUCT_NAME = MethCore;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		7FCAA4D265D4BC6D81ABB18B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.MethCore;
+				PRODUCT_NAME = MethCore;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8114528698967CEE102D5DE5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth.UITests;
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = Meth;
+			};
+			name = Debug;
+		};
+		87B79DEBDD65392799D38A9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				INFOPLIST_FILE = MethHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth.Helper;
+				PRODUCT_NAME = MethHelper;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		D0A30047813EC511C131B768 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth.Tests;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		E21A9DF757E41D576F8B5AD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth.Tests;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F170A71D0B9EDBD0DEABE689 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				INFOPLIST_FILE = MethCLI/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth.CLI;
+				PRODUCT_NAME = meth;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		F40CF5DC38FBD85B2C241D49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = NO;
+				INFOPLIST_FILE = Meth/Support/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.kroekkarawit.Meth;
+				PRODUCT_NAME = Meth;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		239EE03A6EB22BD35CD5F37B /* Build configuration list for PBXNativeTarget "MethCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FCAA4D265D4BC6D81ABB18B /* Debug */,
+				7BEB5A9E2B545CCD6BB728F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3AC3CA953650BB311E95BF56 /* Build configuration list for PBXProject "Meth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				177D4D896A7D7B94C01885F7 /* Debug */,
+				2662F4184B680E34F141839B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3D03627F823AEF999D860D5A /* Build configuration list for PBXNativeTarget "MethUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8114528698967CEE102D5DE5 /* Debug */,
+				3B078E7C6562CC10A32DB2F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		42B9EADA7EF6C491A9AC8672 /* Build configuration list for PBXNativeTarget "MethAgent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7445583E98198684566CB009 /* Debug */,
+				1218964C5336F52D6C0E9502 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7A46EBD6E56DEE14F07A4337 /* Build configuration list for PBXNativeTarget "Meth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F40CF5DC38FBD85B2C241D49 /* Debug */,
+				6D063E35D8E189A34ECC0B21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7E122B11788BD69E59A6A0F6 /* Build configuration list for PBXNativeTarget "MethHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67D98106C1A1F425737F0948 /* Debug */,
+				87B79DEBDD65392799D38A9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D6AE36721799C278E5103A00 /* Build configuration list for PBXNativeTarget "MethTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E21A9DF757E41D576F8B5AD5 /* Debug */,
+				D0A30047813EC511C131B768 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EF6E2975ED1F74CE37FCB912 /* Build configuration list for PBXNativeTarget "MethCLI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3167380C63878A42E1578B3A /* Debug */,
+				F170A71D0B9EDBD0DEABE689 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		37BEFA7D554D6AD1B6D74578 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = exactVersion;
+				version = 2.10.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		16A6043ED3C2B52593B88083 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37BEFA7D554D6AD1B6D74578 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = EF08953597F308DD9AB48C98 /* Project object */;
+}

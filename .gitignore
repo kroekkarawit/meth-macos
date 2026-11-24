@@ -1,0 +1,27 @@
+# Build output
+/build/
+/dist/
+DerivedData/
+*.xcresult
+
+# Xcode user state
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+.swiftpm/
+Meth.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/configuration/
+
+# Local overrides and secrets — never commit
+Config/Local.xcconfig
+*.p12
+*.p8
+*.cer
+*.mobileprovision
+*.key
+*.pem
+sparkle_private*
+.env*
+AuthKey_*
+
+# macOS
+.DS_Store
