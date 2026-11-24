@@ -2,7 +2,7 @@
 
 A release is: universal build → Developer ID signing (inside-out, hardened runtime) → notarize
 and staple the app → DMG + Sparkle zip → notarize and staple the DMG → checksums → EdDSA signature →
-appcast → GitHub Release → appcast on GitHub Pages → verify the public URLs.
+appcast → GitHub Release (DMG, zip, checksums, cumulative appcast) → verify the public URLs.
 
 ## One-time setup (release machine)
 
@@ -53,8 +53,12 @@ Losing it means existing installs can no longer verify updates.
    ./Scripts/release.sh 0.2.0 --publish
    ```
    This bumps `Config/Version.xcconfig` (the build number always increments), commits, tags `v0.2.0`,
-   creates the GitHub Release with the DMG, zip and `checksums.txt`, pushes `appcast.xml` to the `gh-pages`
-   branch, then runs `Scripts/verify-release.sh` (downloads, checksums, appcast entry, Gatekeeper).
+   creates the GitHub Release (marked *latest*) with the DMG, zip, `checksums.txt` and the cumulative `appcast.xml`,
+   then runs `Scripts/verify-release.sh` (downloads, checksums, appcast entry, Gatekeeper).
+
+   The feed URL baked into the app is `https://github.com/kroekkarawit/meth-macos/releases/latest/download/appcast.xml`.
+   GitHub redirects it to the newest release's asset, and each release's appcast contains every earlier version,
+   so no GitHub Pages or Actions are needed to serve updates.
 
 ## Cutting a release from CI
 
@@ -73,7 +77,6 @@ Required repository secrets:
 | `SPARKLE_PRIVATE_KEY` | Contents of `sparkle_private.key` exported above |
 
 The certificate goes into a temporary keychain that is deleted at the end of the job. Secrets are only passed as files and env vars, never echoed.
-Also enable GitHub Pages for the `gh-pages` branch (Settings → Pages).
 
 ## Verifying by hand
 
@@ -89,7 +92,7 @@ shasum -a 256 -c dist/checksums.txt
 ## Testing an update
 
 1. Install the previous release into /Applications and launch it.
-2. Publish the new release (appcast updated).
+2. Publish the new release (its `appcast.xml` becomes the feed).
 3. **Meth Settings → Check for Updates…**. Sparkle shows the release notes, then downloads, verifies the
    EdDSA signature, installs and relaunches.
 4. `meth version` shows the new version; an active session keeps running.

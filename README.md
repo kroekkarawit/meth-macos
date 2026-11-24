@@ -116,7 +116,7 @@ reports Overdose as unsupported. No software can override hardware-enforced slee
 
 ## Updates
 
-Meth checks the HTTPS feed `https://kroekkarawit.github.io/meth-macos/appcast.xml` once a day
+Meth checks the HTTPS feed `https://github.com/kroekkarawit/meth-macos/releases/latest/download/appcast.xml` once a day
 (**Meth Settings → Automatically Check for Updates**), or on demand (**Check for Updates…**).
 Updates are EdDSA-signed and notarized, and Sparkle verifies them before installing. An active session keeps running through an update.
 

@@ -84,7 +84,7 @@ targets:
         LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
         LSApplicationCategoryType: public.app-category.utilities
         NSHumanReadableCopyright: "Copyright © 2026 Meth contributors. MIT License."
-        SUFeedURL: https://kroekkarawit.github.io/meth-macos/appcast.xml
+        SUFeedURL: https://github.com/kroekkarawit/meth-macos/releases/latest/download/appcast.xml
         SUPublicEDKey: $(SPARKLE_PUBLIC_ED_KEY)
         SUEnableAutomaticChecks: true
         SUScheduledCheckInterval: 86400

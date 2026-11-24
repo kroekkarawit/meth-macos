@@ -48,18 +48,17 @@ ED_SIG="$(sed -E 's/.*sparkle:edSignature="([^"]+)".*/\1/' <<<"$SIG_ATTRS")"
 LENGTH="$(sed -E 's/.*length="([0-9]+)".*/\1/' <<<"$SIG_ATTRS")"
 [[ -n "$ED_SIG" && -n "$LENGTH" ]] || die "Could not parse sign_update output: $SIG_ATTRS"
 
-PAGES="$BUILD_DIR/gh-pages"
-rm -rf "$PAGES"
-if git -C "$ROOT" ls-remote --exit-code origin gh-pages >/dev/null 2>&1; then
-  git -C "$ROOT" fetch -q origin gh-pages
-  git -C "$ROOT" worktree prune
-  git -C "$ROOT" worktree add -f "$PAGES" origin/gh-pages >/dev/null
+# The appcast is cumulative and ships as an asset of every release, so
+# https://github.com/$GITHUB_REPO/releases/latest/download/appcast.xml always lists every version.
+APPCAST="$DIST_DIR/appcast.xml"
+if curl -fsSL "https://github.com/$GITHUB_REPO/releases/latest/download/appcast.xml" -o "$APPCAST" 2>/dev/null; then
+  log "Extending the published appcast"
 else
-  mkdir -p "$PAGES"
+  rm -f "$APPCAST"
+  log "No published appcast yet; starting a new one"
 fi
 URL="https://github.com/$GITHUB_REPO/releases/download/$TAG/$ZIP"
-python3 "$ROOT/Scripts/appcast.py" "$PAGES/appcast.xml" "$VERSION" "$BUILD" "$URL" "$LENGTH" "$ED_SIG" "14.0" "$ROOT/CHANGELOG.md"
-cp "$PAGES/appcast.xml" "$DIST_DIR/appcast.xml"
+python3 "$ROOT/Scripts/appcast.py" "$APPCAST" "$VERSION" "$BUILD" "$URL" "$LENGTH" "$ED_SIG" "14.0" "$ROOT/CHANGELOG.md"
 log "Release artifacts:"; ls -lh "$DIST_DIR"
 
 [[ "$PUBLISH" == "--publish" ]] || { log "Dry run complete. Re-run with --publish to ship."; exit 0; }
@@ -78,11 +77,8 @@ m=re.search(rf"^## \[?{re.escape(sys.argv[2])}\]?.*?$(.*?)(?=^## |\Z)",t,re.S|re
 print(m.group(1).strip())
 PY
 )"
-gh release create "$TAG" -R "$GITHUB_REPO" --title "Meth $VERSION" --notes "$NOTES" \
-  "$DIST_DIR/$DMG" "$DIST_DIR/$ZIP" "$DIST_DIR/checksums.txt"
-
-log "Publishing appcast to GitHub Pages"
-"$ROOT/Scripts/publish-appcast.sh" "$PAGES" "$VERSION"
+gh release create "$TAG" -R "$GITHUB_REPO" --title "Meth $VERSION" --notes "$NOTES" --latest \
+  "$DIST_DIR/$DMG" "$DIST_DIR/$ZIP" "$DIST_DIR/checksums.txt" "$DIST_DIR/appcast.xml"
 
 log "Verifying public URLs"
 "$ROOT/Scripts/verify-release.sh" "$VERSION"
