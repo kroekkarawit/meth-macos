@@ -97,6 +97,8 @@ T = {
   "睡眠已被其他程序禁用，Meth 未作更改。"),
 "Sober": ("Sober", "Sober"),
 "Sober — Restore Normal Sleep": ("Sober — กลับสู่การหลับปกติ", "Sober — 恢复正常睡眠"),
+"Sleeping Normally": ("หลับตามปกติ", "正常睡眠中"),
+"Click again to turn off": ("คลิกอีกครั้งเพื่อปิด", "再次点击以关闭"),
 "Something went wrong. Please try again.": ("เกิดข้อผิดพลาด กรุณาลองอีกครั้ง", "出了点问题，请重试。"),
 "Start Overdose": ("เริ่ม Overdose", "启动 Overdose"),
 "Start Overdose?": ("เริ่ม Overdose หรือไม่", "启动 Overdose？"),

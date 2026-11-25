@@ -12,7 +12,7 @@ Sleep control for humans and AI agents.</p>
 </p>
 
 <p align="center">
-  <img src="docs/assets/popover-dark.png" width="340" alt="Meth popover, High mode active with 1:59:31 left">
+  <img src="docs/assets/popover-dark.png" width="340" alt="Meth popover, High mode active with 59:33 left">
 </p>
 
 > **Parody notice.** Meth is a joke on drug-themed sleep-prevention apps. The names

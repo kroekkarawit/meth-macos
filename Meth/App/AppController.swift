@@ -140,6 +140,11 @@ final class AppController: NSObject, NSApplicationDelegate, NSPopoverDelegate, M
     // MARK: MenuBarActions
 
     func select(_ mode: SleepMode) {
+        // Clicking the mode that is already on turns it off, like a toggle.
+        if model.mode == mode, model.pendingMode == nil {
+            soberUp()
+            return
+        }
         Task {
             if mode == .overdose {
                 await requestOverdose()

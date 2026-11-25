@@ -126,11 +126,10 @@
 		21807DEA106F13DA481966C3 /* Embed Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
+			dstPath = Contents/Helpers;
+			dstSubfolderSpec = 1;
 			files = (
-				3C5FD7D451190C08EC09397C /* MethAgent in Embed Dependencies */,
-				FBBABF15BB0C0AD59573304F /* MethHelper in Embed Dependencies */,
+				8334324E6280A17111901C31 /* MethCLI in Embed Dependencies */,
 			);
 			name = "Embed Dependencies";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,10 +137,11 @@
 		6F0E8D1F6BD1086BC1D95A3C /* Embed Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents/Helpers;
-			dstSubfolderSpec = 1;
+			dstPath = "";
+			dstSubfolderSpec = 6;
 			files = (
-				8334324E6280A17111901C31 /* MethCLI in Embed Dependencies */,
+				3C5FD7D451190C08EC09397C /* MethAgent in Embed Dependencies */,
+				FBBABF15BB0C0AD59573304F /* MethHelper in Embed Dependencies */,
 			);
 			name = "Embed Dependencies";
 			runOnlyForDeploymentPostprocessing = 0;

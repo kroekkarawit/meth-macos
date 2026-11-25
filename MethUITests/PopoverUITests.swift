@@ -16,7 +16,7 @@ final class PopoverUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Leave the machine sober.
         let sober = app.buttons["mode.sober"]
-        if sober.exists { sober.click() }
+        if sober.exists, sober.isEnabled { sober.click() }
         app.terminate()
     }
 
@@ -42,6 +42,20 @@ final class PopoverUITests: XCTestCase {
         expectation(for: selected, evaluatedWith: sober)
         waitForExpectations(timeout: 10)
         XCTAssertFalse(bump.isSelected)
+    }
+
+    func testClickingActiveModeAgainReturnsToSober() throws {
+        let high = app.buttons["mode.high"]
+        XCTAssertTrue(high.waitForExistence(timeout: 10))
+        high.click()
+        let selected = NSPredicate(format: "isSelected == true")
+        expectation(for: selected, evaluatedWith: high)
+        waitForExpectations(timeout: 10)
+
+        high.click()
+        expectation(for: selected, evaluatedWith: app.buttons["mode.sober"])
+        waitForExpectations(timeout: 10)
+        XCTAssertFalse(high.isSelected)
     }
 
     func testKeyboardShortcutsSelectModes() throws {

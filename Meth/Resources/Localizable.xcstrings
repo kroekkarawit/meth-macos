@@ -484,6 +484,29 @@
         }
       }
     },
+    "Click again to turn off": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Click again to turn off"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "คลิกอีกครั้งเพื่อปิด"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再次点击以关闭"
+          }
+        }
+      }
+    },
     "Command line tool installed": {
       "extractionState": "manual",
       "localizations": {
@@ -1561,6 +1584,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "睡眠已被其他程序禁用，Meth 未作更改。"
+          }
+        }
+      }
+    },
+    "Sleeping Normally": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sleeping Normally"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "หลับตามปกติ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正常睡眠中"
           }
         }
       }

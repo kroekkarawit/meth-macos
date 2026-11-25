@@ -231,7 +231,9 @@ struct ModeRow: View {
         .keyboardShortcut(shortcut, modifiers: [])
         .focusEffectDisabled()
         .animation(.easeInOut(duration: 0.15), value: isSelected)
+        .help(isSelected ? String(localized: "Click again to turn off") : "")
         .accessibilityLabel(Text(verbatim: "\(title), \(subtitle)"))
+        .accessibilityHint(isSelected ? Text("Click again to turn off") : Text(verbatim: ""))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
         .accessibilityIdentifier("mode.\(mode.rawValue)")
     }
@@ -274,7 +276,8 @@ struct DurationSelector: View {
 
 // MARK: - Sober
 
-/// Full-width outlined button, deliberately quieter than the mode rows.
+/// A standard macOS push button, full width. Disabled while already Sober,
+/// so it only looks pressable when pressing it would change something.
 struct SoberButton: View {
     let isSober: Bool
     let isPending: Bool
@@ -282,33 +285,31 @@ struct SoberButton: View {
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 5) {
-                Text("Sober — Restore Normal Sleep")
+            HStack(spacing: 6) {
                 if isPending {
-                    ProgressView().controlSize(.mini)
-                } else if isSober {
-                    Image(systemName: "checkmark")
-                        .font(.system(size: 10, weight: .semibold))
-                        .foregroundStyle(.secondary)
+                    ProgressView().controlSize(.small)
+                } else {
+                    Image(systemName: isSober ? "checkmark" : "moon.zzz.fill")
+                }
+                if isSober {
+                    Text("Sleeping Normally")
+                } else {
+                    Text("Sober — Restore Normal Sleep")
                 }
             }
-            .font(.system(size: 13))
-            .foregroundStyle(isSober ? .secondary : .primary)
-            .frame(maxWidth: .infinity, minHeight: 28)
-            .overlay(
-                RoundedRectangle(cornerRadius: 7, style: .continuous)
-                    .strokeBorder(.separator, lineWidth: 1)
-            )
-            .contentShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
-            .modifier(RowHighlight())
+            .frame(maxWidth: .infinity)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.bordered)
+        .controlSize(.large)
+        .disabled(isSober || isPending)
         .keyboardShortcut("0", modifiers: [])
         .focusEffectDisabled()
         .accessibilityAddTraits(isSober ? .isSelected : [])
         .accessibilityIdentifier("mode.sober")
     }
 }
+
+// MARK: - Notices
 
 struct NoticeView: View {
     let text: String
