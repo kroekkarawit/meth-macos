@@ -34,7 +34,7 @@ struct MenuBarView: View {
             MenuSeparator()
 
             VStack(spacing: 0) {
-                ModeRow(mode: .sober, symbol: "power",
+                ModeRow(mode: .sober, symbol: "laptopcomputer",
                         title: "Sober", subtitle: String(localized: "Mac sleeps as usual"),
                         model: model, shortcut: "0") { actions?.soberUp() }
                 ModeRow(mode: .bump, symbol: "bolt.fill",
@@ -193,7 +193,6 @@ struct ModeRow: View {
     private var tint: Color {
         switch mode {
         case .overdose: .orange
-        case .sober: .gray       // matches the grey menu bar icon
         default: .accentColor
         }
     }
