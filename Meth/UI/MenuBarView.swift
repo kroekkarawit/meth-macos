@@ -34,7 +34,7 @@ struct MenuBarView: View {
             MenuSeparator()
 
             VStack(spacing: 0) {
-                ModeRow(mode: .sober, symbol: "moon.fill",
+                ModeRow(mode: .sober, symbol: "power",
                         title: "Sober", subtitle: String(localized: "Mac sleeps as usual"),
                         model: model, shortcut: "0") { actions?.soberUp() }
                 ModeRow(mode: .bump, symbol: "bolt.fill",

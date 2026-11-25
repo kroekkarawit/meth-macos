@@ -149,20 +149,20 @@
 		E22EDF86A1E8CF39C776F605 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents/Library/LaunchAgents;
+			dstPath = Contents/Library/LaunchDaemons;
 			dstSubfolderSpec = 1;
 			files = (
-				0D76CF57628808C380E0FD5A /* io.github.kroekkarawit.Meth.Agent.plist in CopyFiles */,
+				C0E1BF98F431B4FCAE612D54 /* io.github.kroekkarawit.Meth.Helper.plist in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F0B6C7BB89AEC9CF5AAC5B99 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents/Library/LaunchDaemons;
+			dstPath = Contents/Library/LaunchAgents;
 			dstSubfolderSpec = 1;
 			files = (
-				C0E1BF98F431B4FCAE612D54 /* io.github.kroekkarawit.Meth.Helper.plist in CopyFiles */,
+				0D76CF57628808C380E0FD5A /* io.github.kroekkarawit.Meth.Agent.plist in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
