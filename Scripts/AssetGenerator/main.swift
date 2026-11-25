@@ -1,5 +1,5 @@
-// Renders Meth's raster assets from the shared vector glyph (Meth/UI/SyringeGlyph.swift):
-//   • Meth/Assets.xcassets/AppIcon.appiconset/*.png
+// Renders Meth's raster assets (app icon from PillIcon.swift):
+//   • Meth/AppIcon.icon (Icon Composer bundle: icon.json + pill layer)
 //   • docs/assets/logo.png
 //   • Scripts/dmg/background.png, background@2x.png
 // Run via Scripts/generate-assets.sh. Output is deterministic.
@@ -30,67 +30,49 @@ func writePNG(_ ctx: CGContext, to url: URL, dpi: Int = 72) {
     precondition(CGImageDestinationFinalize(dest), "PNG write failed: \(url.path)")
 }
 
-/// macOS app icon: rounded-rect "squircle" tile on a 1024 grid (824 pt body, 100 pt margin).
+/// macOS app icon (see PillIcon.swift).
 func drawAppIcon(size: Int) -> CGContext {
     let ctx = bitmap(size, size)
-    let s = CGFloat(size) / 1024
-    ctx.scaleBy(x: s, y: s)
-
-    let body = CGRect(x: 100, y: 100, width: 824, height: 824)
-    let path = CGPath(roundedRect: body, cornerWidth: 185, cornerHeight: 185, transform: nil)
-
-    // Soft drop shadow.
-    ctx.saveGState()
-    ctx.setShadow(offset: CGSize(width: 0, height: -10), blur: 28, color: srgb(0x000000, 0.28))
-    ctx.addPath(path)
-    ctx.setFillColor(srgb(0xFFFFFF))
-    ctx.fillPath()
-    ctx.restoreGState()
-
-    // Clinical white-to-cool-grey gradient.
-    ctx.saveGState()
-    ctx.addPath(path)
-    ctx.clip()
-    let gradient = CGGradient(colorsSpace: CGColorSpace(name: CGColorSpace.sRGB),
-                              colors: [srgb(0xFFFFFF), srgb(0xE6EAF0)] as CFArray, locations: [0, 1])!
-    ctx.drawLinearGradient(gradient, start: CGPoint(x: 512, y: 924), end: CGPoint(x: 512, y: 100), options: [])
-    // Subtle inner top highlight.
-    ctx.setStrokeColor(srgb(0xFFFFFF, 0.9))
-    ctx.setLineWidth(6)
-    ctx.addPath(CGPath(roundedRect: body.insetBy(dx: 3, dy: 3), cornerWidth: 182, cornerHeight: 182, transform: nil))
-    ctx.strokePath()
-    ctx.restoreGState()
-
-    // Hairline edge.
-    ctx.addPath(path)
-    ctx.setStrokeColor(srgb(0x000000, 0.08))
-    ctx.setLineWidth(2)
-    ctx.strokePath()
-
-    // Syringe with a faint shadow.
-    ctx.saveGState()
-    ctx.setShadow(offset: CGSize(width: 0, height: -6), blur: 14, color: srgb(0x0B1A33, 0.22))
-    SyringeGlyph.draw(in: ctx, rect: body.insetBy(dx: 96, dy: 96), fill: 0.68,
-                      stroke: srgb(0x232830), liquid: srgb(0x2F7CF6), lineWidth: 1.25)
-    ctx.restoreGState()
+    ctx.scaleBy(x: CGFloat(size) / 1024, y: CGFloat(size) / 1024)
+    drawPillIcon(ctx)
     return ctx
 }
 
-// MARK: App icon set
+// MARK: Icon Composer bundle (macOS 26 Liquid Glass icon; Xcode derives older sizes from it)
 
-let iconset = root.appendingPathComponent("Meth/Assets.xcassets/AppIcon.appiconset")
-var images: [[String: String]] = []
-for base in [16, 32, 128, 256, 512] {
-    for scale in [1, 2] {
-        let px = base * scale
-        let name = "icon_\(base)x\(base)\(scale == 2 ? "@2x" : "").png"
-        writePNG(drawAppIcon(size: px), to: iconset.appendingPathComponent(name), dpi: 72 * scale)
-        images.append(["idiom": "mac", "size": "\(base)x\(base)", "scale": "\(scale)x", "filename": name])
+let iconBundle = root.appendingPathComponent("Meth/AppIcon.icon")
+do {
+    let layer = bitmap(1024, 1024)
+    drawPillLayer(layer)
+    writePNG(layer, to: iconBundle.appendingPathComponent("Assets/pill.png"))
+    let iconJSON = """
+    {
+      "fill" : {
+        "linear-gradient" : [
+          "srgb:0.56078,0.88235,1.00000,1.00000",
+          "srgb:0.16471,0.48235,0.96471,1.00000"
+        ],
+        "orientation" : { "start" : { "x" : 0.5, "y" : 0 }, "stop" : { "x" : 0.5, "y" : 1 } }
+      },
+      "groups" : [
+        {
+          "layers" : [
+            {
+              "glass" : false,
+              "image-name" : "pill.png",
+              "name" : "pill",
+              "position" : { "scale" : 1, "translation-in-points" : [ 0, 0 ] }
+            }
+          ],
+          "shadow" : { "kind" : "layer-color", "opacity" : 0.5 },
+          "translucency" : { "enabled" : false, "value" : 0.5 }
+        }
+      ],
+      "supported-platforms" : { "squares" : [ "macOS" ] }
     }
+    """
+    try iconJSON.write(to: iconBundle.appendingPathComponent("icon.json"), atomically: true, encoding: .utf8)
 }
-let contents: [String: Any] = ["images": images, "info": ["author": "xcode", "version": 1]]
-let json = try JSONSerialization.data(withJSONObject: contents, options: [.prettyPrinted, .sortedKeys])
-try json.write(to: iconset.appendingPathComponent("Contents.json"))
 
 // MARK: README logo
 
