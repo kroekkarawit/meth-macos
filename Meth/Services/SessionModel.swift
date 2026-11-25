@@ -71,11 +71,32 @@ final class SessionModel {
 
     // MARK: Commands
 
-    func activate(_ mode: SleepMode, confirmIndefiniteOverdose: Bool = false) async {
+    /// Starts `mode`. `duration` defaults to the popover's selection; `whilePID` ties the
+    /// session to a running app.
+    func activate(_ mode: SleepMode, duration: MethDuration? = nil, whilePID: Int32? = nil,
+                  confirmIndefiniteOverdose: Bool = false) async {
         guard mode != .sober else { return await sober() }
-        await send(.activate(mode: mode, durationSeconds: selectedDuration.seconds,
-                             confirmIndefiniteOverdose: confirmIndefiniteOverdose), pending: mode)
+        await send(.activate(mode: mode, durationSeconds: (duration ?? selectedDuration).seconds,
+                             confirmIndefiniteOverdose: confirmIndefiniteOverdose, whilePID: whilePID), pending: mode)
     }
+
+    func extend(bySeconds seconds: Int) async {
+        await send(.extend(seconds: seconds), pending: nil)
+    }
+
+    func setBatteryRules(endBelowPercent: Int?, endOnBatteryPower: Bool) async {
+        await send(.setBatteryRules(endBelowBatteryPercent: endBelowPercent, endOnBatteryPower: endOnBatteryPower), pending: nil)
+    }
+
+    /// The mode "Until…" / "While an app is running" apply to: the active one, else the
+    /// last one used (High by default).
+    var targetMode: SleepMode {
+        if mode.isActive { return mode }
+        return SleepMode(rawValue: UserDefaults.standard.string(forKey: "lastActiveMode") ?? "") ?? .high
+    }
+
+    /// The running session can take more time (timed, not indefinite).
+    var canExtend: Bool { mode.isActive && snapshot.remainingSeconds != nil }
 
     func sober() async {
         await send(.sober, pending: .sober)
@@ -126,6 +147,7 @@ final class SessionModel {
     fileprivate func apply(_ s: SessionSnapshot) {
         snapshot = s
         receivedAt = .now
+        if s.mode.isActive { UserDefaults.standard.set(s.mode.rawValue, forKey: "lastActiveMode") }
         isConnected = true
         // After a Sparkle update the running agent may be older than the app. Swap it
         // for the new binary only while nothing is active, so no session is interrupted.

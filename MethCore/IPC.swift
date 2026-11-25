@@ -27,9 +27,14 @@ public enum AgentRequest: Codable, Equatable, Sendable {
     case status
     /// `duration == nil` means indefinite. `confirmIndefiniteOverdose` must be true to
     /// start an indefinite Overdose (only the app can send it).
-    case activate(mode: SleepMode, durationSeconds: Int?, confirmIndefiniteOverdose: Bool)
+    /// `whilePID`: also end the session when that process exits.
+    case activate(mode: SleepMode, durationSeconds: Int?, confirmIndefiniteOverdose: Bool, whilePID: Int32? = nil)
     case sober
+    /// Adds time to the running timed session (same mode, same watched process).
+    case extend(seconds: Int)
     case setAllowOverdoseFromCLI(Bool)
+    /// Battery rules. App only.
+    case setBatteryRules(endBelowBatteryPercent: Int?, endOnBatteryPower: Bool)
     /// Lets an updated app replace an older agent binary when nothing is active.
     case restartIfIdle
 }

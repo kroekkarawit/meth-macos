@@ -70,6 +70,29 @@
         }
       }
     },
+    "%@ will end at this time.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ will end at this time."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ จะหยุดเมื่อถึงเวลานี้"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 将在此时间结束。"
+          }
+        }
+      }
+    },
     "%@ · %@ left": {
       "extractionState": "manual",
       "localizations": {
@@ -93,6 +116,29 @@
         }
       }
     },
+    "%@ · %@ left · %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@ left · %@"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · เหลือ %@ · %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · 剩余 %@ · %@"
+          }
+        }
+      }
+    },
     "%@ · No time limit": {
       "extractionState": "manual",
       "localizations": {
@@ -112,6 +158,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ · 无时间限制"
+          }
+        }
+      }
+    },
+    "%@ · Until %@ quits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · Until %@ quits"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · จนกว่า %@ จะปิด"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · 直到 %@ 退出"
           }
         }
       }
@@ -208,6 +277,75 @@
         }
       }
     },
+    "1 Hour": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 Hour"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 ชั่วโมง"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 小时"
+          }
+        }
+      }
+    },
+    "15 Minutes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "15 Minutes"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "15 นาที"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "15 分钟"
+          }
+        }
+      }
+    },
+    "30 Minutes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 Minutes"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 นาที"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 分钟"
+          }
+        }
+      }
+    },
     "About Meth": {
       "extractionState": "manual",
       "localizations": {
@@ -250,6 +388,52 @@
           "stringUnit": {
             "state": "translated",
             "value": "运行中"
+          }
+        }
+      }
+    },
+    "Add Time": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Time"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ต่อเวลา"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "延长时间"
+          }
+        }
+      }
+    },
+    "After %lld Minutes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After %lld Minutes"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "หลัง %lld นาที"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld 分钟后"
           }
         }
       }
@@ -319,6 +503,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "请在“系统设置 › 通用 › 登录项”中允许 Meth 以使用 Overdose。"
+          }
+        }
+      }
+    },
+    "Allow Meth to move the pointer?": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow Meth to move the pointer?"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "อนุญาตให้ Meth ขยับตัวชี้เมาส์ไหม"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允许 Meth 移动指针？"
           }
         }
       }
@@ -434,6 +641,52 @@
           "stringUnit": {
             "state": "translated",
             "value": "自动检查更新"
+          }
+        }
+      }
+    },
+    "Automatically Stay Awake": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatically Stay Awake"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ไม่หลับอัตโนมัติ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动保持唤醒"
+          }
+        }
+      }
+    },
+    "Battery": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Battery"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "แบตเตอรี่"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "电池"
           }
         }
       }
@@ -576,6 +829,29 @@
         }
       }
     },
+    "Continue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ดำเนินการต่อ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "继续"
+          }
+        }
+      }
+    },
     "Copy PATH Line": {
       "extractionState": "manual",
       "localizations": {
@@ -595,6 +871,52 @@
           "stringUnit": {
             "state": "translated",
             "value": "复制 PATH 设置"
+          }
+        }
+      }
+    },
+    "Custom Duration": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Custom Duration"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "กำหนดเวลาเอง"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自定义时长"
+          }
+        }
+      }
+    },
+    "Custom Duration…": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Custom Duration…"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "กำหนดเวลาเอง…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自定义时长…"
           }
         }
       }
@@ -687,6 +1009,167 @@
           "stringUnit": {
             "state": "translated",
             "value": "启用 Overdose 助手…"
+          }
+        }
+      }
+    },
+    "End Session at Low Battery": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End Session at Low Battery"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "หยุดเมื่อแบตเตอรี่ต่ำ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "电量低时结束"
+          }
+        }
+      }
+    },
+    "End Session on Battery Power": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End Session on Battery Power"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "หยุดเมื่อถอดสายชาร์จ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用电池供电时结束"
+          }
+        }
+      }
+    },
+    "Ended because the app you chose quit.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ended because the app you chose quit."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "หยุดแล้ว เพราะแอปที่เลือกไว้ปิดไปแล้ว"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已结束，因为你选择的 App 已退出。"
+          }
+        }
+      }
+    },
+    "Ended because the battery reached %lld%%.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ended because the battery reached %lld%%."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "หยุดแล้ว เพราะแบตเตอรี่เหลือ %lld%%"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已结束，因为电量降到了 %lld%%。"
+          }
+        }
+      }
+    },
+    "Ended because the power adapter was disconnected.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ended because the power adapter was disconnected."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "หยุดแล้ว เพราะถอดสายชาร์จ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已结束，因为电源适配器已断开。"
+          }
+        }
+      }
+    },
+    "Enter a duration such as 45m, 2h or 1h30m.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a duration such as 45m, 2h or 1h30m."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ใส่ระยะเวลา เช่น 45m, 2h หรือ 1h30m"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "输入时长，例如 45m、2h 或 1h30m。"
+          }
+        }
+      }
+    },
+    "Global Keyboard Shortcuts (⌃⌥⌘0–3)": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Global Keyboard Shortcuts (⌃⌥⌘0–3)"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "คีย์ลัดใช้ได้ทั้งระบบ (⌃⌥⌘0–3)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全局键盘快捷键（⌃⌥⌘0–3）"
           }
         }
       }
@@ -875,6 +1358,29 @@
         }
       }
     },
+    "Keep Chat Apps Showing You as Active": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep Chat Apps Showing You as Active"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ให้แอปแชตเห็นว่ายังออนไลน์"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "让聊天 App 显示你在线"
+          }
+        }
+      }
+    },
     "Keep Mac awake": {
       "extractionState": "manual",
       "localizations": {
@@ -1059,6 +1565,29 @@
         }
       }
     },
+    "Lock Screen When Idle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lock Screen When Idle"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ล็อกหน้าจอเมื่อไม่ได้ใช้งาน"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "闲置时锁定屏幕"
+          }
+        }
+      }
+    },
     "Mac sleeps as usual": {
       "extractionState": "manual",
       "localizations": {
@@ -1151,6 +1680,52 @@
         }
       }
     },
+    "More Time Options": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More Time Options"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ตัวเลือกเวลาเพิ่มเติม"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更多时间选项"
+          }
+        }
+      }
+    },
+    "Never": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Never"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ไม่ล็อก"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从不"
+          }
+        }
+      }
+    },
     "No time limit": {
       "extractionState": "manual",
       "localizations": {
@@ -1220,6 +1795,52 @@
         }
       }
     },
+    "Off": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ปิด"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭"
+          }
+        }
+      }
+    },
+    "Only a session with a time limit can be extended.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only a session with a time limit can be extended."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ต่อเวลาได้เฉพาะ session ที่มีกำหนดเวลา"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "只有有时间限制的会话才能延长。"
+          }
+        }
+      }
+    },
     "Open System Settings": {
       "extractionState": "manual",
       "localizations": {
@@ -1285,6 +1906,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Overdose 助手：已启用"
+          }
+        }
+      }
+    },
+    "Overdose ended and normal sleep was restored.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Overdose ended and normal sleep was restored."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Overdose หยุดแล้ว และการหลับกลับเป็นปกติ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Overdose 已结束，已恢复正常睡眠。"
           }
         }
       }
@@ -1611,6 +2255,29 @@
         }
       }
     },
+    "Set": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ตั้งค่า"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设置"
+          }
+        }
+      }
+    },
     "Settings": {
       "extractionState": "manual",
       "localizations": {
@@ -1749,6 +2416,29 @@
         }
       }
     },
+    "Start": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เริ่ม"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开始"
+          }
+        }
+      }
+    },
     "Start Overdose": {
       "extractionState": "manual",
       "localizations": {
@@ -1795,6 +2485,29 @@
         }
       }
     },
+    "Stay Awake Until…": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stay Awake Until…"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ไม่หลับจนถึง…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保持唤醒直到…"
+          }
+        }
+      }
+    },
     "System Default": {
       "extractionState": "manual",
       "localizations": {
@@ -1837,6 +2550,75 @@
           "stringUnit": {
             "state": "translated",
             "value": "系统睡眠将保持关闭，直到你选择 Sober——包括合上盖子时。\n\n安全保障：如果 Meth 停止运行，macOS 睡眠将在 10 分钟内恢复，并且下次重启时一定会恢复。"
+          }
+        }
+      }
+    },
+    "That app is no longer running.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "That app is no longer running."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "แอปนั้นปิดไปแล้ว"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "该 App 已不再运行。"
+          }
+        }
+      }
+    },
+    "That isn’t a valid duration.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "That isn’t a valid duration."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ระยะเวลาไม่ถูกต้อง"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "时长无效。"
+          }
+        }
+      }
+    },
+    "The battery is below the limit set in Meth › Battery. Connect power or change the limit.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The battery is below the limit set in Meth › Battery. Connect power or change the limit."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "แบตเตอรี่ต่ำกว่าขีดจำกัดที่ตั้งไว้ใน Meth › แบตเตอรี่ เสียบสายชาร์จหรือเปลี่ยนขีดจำกัดก่อน"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "电量低于 Meth › 电池 中设置的下限。请接通电源或更改下限。"
           }
         }
       }
@@ -1979,6 +2761,29 @@
         }
       }
     },
+    "To keep chat apps showing you as active, Meth nudges the pointer by one pixel while you’re away. macOS will ask you to allow Meth in Privacy & Security › Accessibility.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To keep chat apps showing you as active, Meth nudges the pointer by one pixel while you’re away. macOS will ask you to allow Meth in Privacy & Security › Accessibility."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เพื่อให้แอปแชตเห็นว่าคุณยังออนไลน์ Meth จะขยับตัวชี้เมาส์ 1 พิกเซลตอนที่คุณไม่อยู่ macOS จะขอให้อนุญาต Meth ใน ความเป็นส่วนตัวและความปลอดภัย › การช่วยการเข้าถึง"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "为了让聊天 App 显示你在线，Meth 会在你离开时将指针移动 1 像素。macOS 会请你在“隐私与安全性 › 辅助功能”中允许 Meth。"
+          }
+        }
+      }
+    },
     "Try it: meth status": {
       "extractionState": "manual",
       "localizations": {
@@ -2021,6 +2826,144 @@
           "stringUnit": {
             "state": "translated",
             "value": "请在“系统设置 › 通用 › 登录项”的“允许在后台”中打开 Meth，然后再次选择 Overdose。"
+          }
+        }
+      }
+    },
+    "Until a Time…": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Until a Time…"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "จนถึงเวลา…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "直到某个时间…"
+          }
+        }
+      }
+    },
+    "Use forms like 45m, 2h or 1h30m (up to 30 days; 24 hours for Overdose).": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use forms like 45m, 2h or 1h30m (up to 30 days; 24 hours for Overdose)."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ใช้รูปแบบเช่น 45m, 2h หรือ 1h30m (สูงสุด 30 วัน, Overdose สูงสุด 24 ชั่วโมง)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请使用 45m、2h 或 1h30m 等格式（最长 30 天；Overdose 最长 24 小时）。"
+          }
+        }
+      }
+    },
+    "While Charging": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "While Charging"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ขณะชาร์จไฟ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "充电时"
+          }
+        }
+      }
+    },
+    "While You’re Away": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "While You’re Away"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ตอนที่คุณไม่อยู่"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当你离开时"
+          }
+        }
+      }
+    },
+    "While an App Is Running": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "While an App Is Running"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ขณะที่แอปยังเปิดอยู่"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当某个 App 运行时"
+          }
+        }
+      }
+    },
+    "With an External Display": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "With an External Display"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เมื่อต่อจอภายนอก"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "连接外接显示器时"
           }
         }
       }

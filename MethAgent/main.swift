@@ -186,6 +186,13 @@ listener.delegate = service
 Task {
     await controller.setOnChange { snapshot in service.broadcast(snapshot) }
     let warnings = await controller.restore()
+    // Battery rules (end on low battery / on battery power) are enforced here, so they
+    // apply even when the app isn't running.
+    let power = SystemPowerSource()
+    await controller.powerSourceChanged(power.current())
+    SystemPowerSource.observe(queue: .global(qos: .utility)) {
+        Task { await controller.powerSourceChanged(power.current()) }
+    }
     for w in warnings { log.warning("Restore: \(w.code.rawValue, privacy: .public) \(w.message, privacy: .public)") }
     listener.resume()
     service.scheduleIdleExitCheck()

@@ -97,8 +97,10 @@ case .status:
     request = .status
 case .sober:
     request = .sober
-case let .activate(mode, duration):
-    request = .activate(mode: mode, durationSeconds: duration.seconds, confirmIndefiniteOverdose: false)
+case let .activate(mode, duration, whilePID):
+    request = .activate(mode: mode, durationSeconds: duration.seconds, confirmIndefiniteOverdose: false, whilePID: whilePID)
+case let .extend(seconds):
+    request = .extend(seconds: seconds)
 }
 
 // Run off the main actor; the main thread just waits.

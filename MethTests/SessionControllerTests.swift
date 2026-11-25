@@ -9,6 +9,8 @@ final class SessionControllerTests: XCTestCase {
     var engine: OverdoseEngine!
     var privileged: MockPrivileged!
     var store: MemorySessionStore!
+    var processes: FakeProcesses!
+    var power: FakePower!
 
     override func setUp() {
         clock = ManualClock()
@@ -18,11 +20,14 @@ final class SessionControllerTests: XCTestCase {
         engine = OverdoseEngine(backend: pmset, store: MemoryRecordStore(), clock: clock)
         privileged = MockPrivileged(engine: engine)
         store = MemorySessionStore()
+        processes = FakeProcesses()
+        power = FakePower()
     }
 
     func makeController() -> SessionController {
         SessionController(assertions: assertions, privileged: privileged, store: store,
-                          clock: clock, scheduler: scheduler, version: "9.9.9")
+                          clock: clock, scheduler: scheduler, version: "9.9.9",
+                          processes: processes, power: power)
     }
 
     // MARK: Basic transitions

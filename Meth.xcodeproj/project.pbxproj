@@ -34,6 +34,7 @@
 		89AF50C25965029977C231F7 /* MethDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9CBBCD61E67D1EAD145B97 /* MethDuration.swift */; };
 		8D1AF4B6508AB3EFD54728E4 /* SessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDDF020670D162C029A9CAB /* SessionModel.swift */; };
 		9158E0516ABEB007E3570DB8 /* PopoverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99D2F61D0F294349E90EC8 /* PopoverUITests.swift */; };
+		9756D5B543D83163D86889CA /* FeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE840200A69FF3B587392B /* FeatureTests.swift */; };
 		A1FA84973ABF6F8ECFEFB43C /* OutputAndPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFA9D468D25DBCB8EE381B8 /* OutputAndPersistenceTests.swift */; };
 		A342B564B0E3E9DB6BE76B17 /* IPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344FF42F50F0B6F4BFA0CF98 /* IPC.swift */; };
 		B1A25C12B341F1B68B56C0F8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BACFF893360868AC2FE3B7 /* Persistence.swift */; };
@@ -44,6 +45,8 @@
 		CB4F22E39EB89B2DF2070293 /* CLIStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9F012E27CF2F4C2D466B /* CLIStrings.swift */; };
 		CD2DB4A0A15F6836CCCF3FE4 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4A2EDEA8857A229F17133F /* MenuBarView.swift */; };
 		D4868A6367B42B0B89CFBE4A /* BackgroundServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE7F050006CD8727A53BA0A /* BackgroundServices.swift */; };
+		DDC8BE63D41A4847A9E6A8F7 /* SystemMonitors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB5E3AD7ECF77CFA7217FE /* SystemMonitors.swift */; };
+		E2A64547346C5B0E11EFF9E9 /* Automation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E794C4D6224D7EB7652F54 /* Automation.swift */; };
 		E6F5E72B9DF183593AF75AA8 /* SyringeGlyph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2098E4E9AD461C0B3CEA9CB9 /* SyringeGlyph.swift */; };
 		E77D558C92BEFA384C07686F /* SleepMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A57A4E73E6DBF4308812ADB /* SleepMode.swift */; };
 		E99F1D0A1AF7417C5664758B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B4F03B7FC5FFC12DAB993B /* AppController.swift */; };
@@ -169,7 +172,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00CB5E3AD7ECF77CFA7217FE /* SystemMonitors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMonitors.swift; sourceTree = "<group>"; };
 		04382D5D4A42F49B430F07AC /* MethTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MethTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		09AE840200A69FF3B587392B /* FeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureTests.swift; sourceTree = "<group>"; };
 		09B4F03B7FC5FFC12DAB993B /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		09E97652C139996617668679 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		1ADDB423DBD48E8F9D6DCB6A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -208,6 +213,7 @@
 		BA59676FD3155856DAFD6A44 /* MethHelper */ = {isa = PBXFileReference; includeInIndex = 0; path = MethHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD4A2EDEA8857A229F17133F /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		C0E1EE35413B53537817A930 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C5E794C4D6224D7EB7652F54 /* Automation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Automation.swift; sourceTree = "<group>"; };
 		C776DC2835E03474A8D4470E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D45083A509A4FAAAB4465B3A /* TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDoubles.swift; sourceTree = "<group>"; };
 		D71EFE17C538F65859194DF2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -314,6 +320,7 @@
 		4FA52B8D5174808F70D9CE62 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C5E794C4D6224D7EB7652F54 /* Automation.swift */,
 				2FE7F050006CD8727A53BA0A /* BackgroundServices.swift */,
 				9FA7CF5A402DEFC36C54BA81 /* CLIInstaller.swift */,
 				7E07F671A82461886A3FD8CF /* LanguageManager.swift */,
@@ -398,6 +405,7 @@
 		EFD1B69FB1DC3CD98FAB1FF7 /* MethTests */ = {
 			isa = PBXGroup;
 			children = (
+				09AE840200A69FF3B587392B /* FeatureTests.swift */,
 				7BFA9D468D25DBCB8EE381B8 /* OutputAndPersistenceTests.swift */,
 				9B32B231D7A8FD6243A1DE85 /* OverdoseEngineTests.swift */,
 				7454C83524CBD5708EC63B5E /* ParsingTests.swift */,
@@ -438,6 +446,7 @@
 				42D3226DB1A30E1F1E0D7A04 /* Session.swift */,
 				8B969525A5A7E2A07C602AAB /* SessionController.swift */,
 				8A57A4E73E6DBF4308812ADB /* SleepMode.swift */,
+				00CB5E3AD7ECF77CFA7217FE /* SystemMonitors.swift */,
 				7D0CCE92FA8D5C7F0A2554E2 /* XPCClient.swift */,
 			);
 			path = MethCore;
@@ -726,6 +735,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E99F1D0A1AF7417C5664758B /* AppController.swift in Sources */,
+				E2A64547346C5B0E11EFF9E9 /* Automation.swift in Sources */,
 				D4868A6367B42B0B89CFBE4A /* BackgroundServices.swift in Sources */,
 				3C6C4417060CE695D65A5C2B /* CLIInstaller.swift in Sources */,
 				62F501C9C9F5CE9B19285748 /* LanguageManager.swift in Sources */,
@@ -756,6 +766,7 @@
 				59088E8E371AD9DED0A34C0B /* Session.swift in Sources */,
 				C3D977C3CF01060739D65880 /* SessionController.swift in Sources */,
 				E77D558C92BEFA384C07686F /* SleepMode.swift in Sources */,
+				DDC8BE63D41A4847A9E6A8F7 /* SystemMonitors.swift in Sources */,
 				CB21EFAEB337712F07BA0968 /* XPCClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -772,6 +783,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9756D5B543D83163D86889CA /* FeatureTests.swift in Sources */,
 				A1FA84973ABF6F8ECFEFB43C /* OutputAndPersistenceTests.swift in Sources */,
 				818A135FED2EF3415F72C646 /* OverdoseEngineTests.swift in Sources */,
 				208EBFEA12EBB5FF4C532D6D /* ParsingTests.swift in Sources */,

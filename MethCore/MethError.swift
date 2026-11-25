@@ -17,16 +17,19 @@ public enum MethErrorCode: String, Codable, Sendable, CaseIterable {
     case privilegedOperationFailed = "privileged_operation_failed"
     case restoreConflict = "restore_conflict"
     case unauthorizedClient = "unauthorized_client"
+    case processNotFound = "process_not_found"
+    case notExtendable = "not_extendable"
+    case batteryLow = "battery_low"
     case `internal` = "internal"
 
     /// Process exit status used by the CLI. Documented in docs/CLI.md.
     public var exitCode: Int32 {
         switch self {
-        case .usage, .unknownCommand, .invalidDuration, .durationRequired: 2
+        case .usage, .unknownCommand, .invalidDuration, .durationRequired, .processNotFound, .notExtendable: 2
         case .agentUnavailable: 3
         case .helperUnavailable, .helperRequiresApproval, .overdoseNotAllowed,
              .overdoseUnsupported, .indefiniteOverdoseRequiresConfirmation: 4
-        case .assertionFailed, .privilegedOperationFailed, .restoreConflict: 5
+        case .assertionFailed, .privilegedOperationFailed, .restoreConflict, .batteryLow: 5
         case .unauthorizedClient: 6
         case .internal: 1
         }

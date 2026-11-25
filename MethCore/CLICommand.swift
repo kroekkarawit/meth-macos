@@ -7,7 +7,8 @@ public struct CLIInvocation: Equatable, Sendable {
         case version
         case status
         case sober
-        case activate(SleepMode, MethDuration)
+        case activate(SleepMode, MethDuration, whilePID: Int32?)
+        case extend(seconds: Int)
     }
     public var command: Command
     public var json: Bool
@@ -28,13 +29,19 @@ public enum CLIParser {
     ///   meth version|--version|-V
     ///   meth status [--json]
     ///   meth sober|stop [--json]
-    ///   meth bump|high [--for <duration>] [--json]      (no --for = indefinite)
-    ///   meth overdose --for <duration> [--json]          (--for required, ≤ 24h)
+    ///   meth bump|high [--for <duration> | --until <HH:MM>] [--while-pid <pid>] [--json]
+    ///   meth overdose (--for <duration> | --until <HH:MM>) [--while-pid <pid>] [--json]
+    ///   meth extend <duration> [--json]
     /// Global: --json, --lang <en|th|zh>
-    public static func parse(_ arguments: [String]) throws(MethError) -> CLIInvocation {
+    ///
+    /// `now` and `calendar` resolve `--until`; injectable for tests.
+    public static func parse(_ arguments: [String], now: Date = Date(),
+                             calendar: Calendar = .current) throws(MethError) -> CLIInvocation {
         var json = false
         var language: CLILanguage?
         var durationText: String?
+        var untilText: String?
+        var whilePID: Int32?
         var positionals: [String] = []
 
         var i = 0
@@ -53,6 +60,13 @@ public enum CLIParser {
             case "--for", "-f", "-t":
                 guard durationText == nil else { throw MethError(.usage, "--for given more than once.") }
                 durationText = try value(for: arg)
+            case "--until", "-u":
+                guard untilText == nil else { throw MethError(.usage, "--until given more than once.") }
+                untilText = try value(for: arg)
+            case "--while-pid", "-p":
+                let v = try value(for: arg)
+                guard let pid = Int32(v), pid > 0 else { throw MethError(.usage, "--while-pid needs a process ID, got “\(v)”.") }
+                whilePID = pid
             case "--lang":
                 let v = try value(for: arg)
                 guard let l = CLILanguage(code: v) else { throw MethError(.usage, "Unsupported language: \(v). Use en, th or zh.") }
@@ -81,12 +95,31 @@ public enum CLIParser {
         guard let word = positionals.first else {
             return CLIInvocation(command: .help, json: json, language: language)
         }
+        if word.lowercased() == "extend" {
+            guard positionals.count == 2 else { throw MethError(.usage, "Usage: meth extend <duration>, e.g. meth extend 30m") }
+            guard durationText == nil, untilText == nil, whilePID == nil else {
+                throw MethError(.usage, "extend takes only a duration.")
+            }
+            let text = positionals[1]
+            let d: MethDuration
+            do {
+                d = try DurationParser.parse(text, maximumSeconds: MethDuration.maximumSeconds)
+            } catch {
+                throw MethError(.invalidDuration, Self.describe(error, input: text))
+            }
+            guard let secs = d.seconds else { throw MethError(.invalidDuration, "Extension needs a finite duration.") }
+            return CLIInvocation(command: .extend(seconds: secs), json: json, language: language)
+        }
         guard positionals.count == 1 else {
             throw MethError(.usage, "Unexpected argument: \(positionals[1])")
         }
 
         func noDuration(_ name: String) throws(MethError) {
-            if durationText != nil { throw MethError(.usage, "\(name) does not accept --for.") }
+            if durationText != nil || untilText != nil { throw MethError(.usage, "\(name) does not accept --for/--until.") }
+            if whilePID != nil { throw MethError(.usage, "\(name) does not accept --while-pid.") }
+        }
+        if durationText != nil && untilText != nil {
+            throw MethError(.usage, "Use either --for or --until, not both.")
         }
 
         let command: CLIInvocation.Command
@@ -115,16 +148,36 @@ public enum CLIParser {
                     } catch {
                         throw MethError(.invalidDuration, Self.describe(error, input: durationText))
                     }
+                } else if let untilText {
+                    let secs = try Self.secondsUntil(untilText, now: now, calendar: calendar)
+                    guard secs <= maxSeconds else {
+                        throw MethError(.invalidDuration, "“\(untilText)” is more than \(MethDuration.compact(maxSeconds)) away.")
+                    }
+                    duration = .seconds(secs)
                 } else {
                     duration = .indefinite
                 }
                 if mode == .overdose && duration == .indefinite {
                     throw MethError(.durationRequired, "Overdose requires an explicit duration of at most 24h, e.g. `meth overdose --for 1h`.")
                 }
-                command = .activate(mode, duration)
+                command = .activate(mode, duration, whilePID: whilePID)
             }
         }
         return CLIInvocation(command: command, json: json, language: language)
+    }
+
+    /// Seconds from `now` until the next occurrence of `HH:MM` (24-hour) in `calendar`'s time zone.
+    public static func secondsUntil(_ text: String, now: Date, calendar: Calendar) throws(MethError) -> Int {
+        let parts = text.split(separator: ":")
+        guard parts.count == 2, let h = Int(parts[0]), let m = Int(parts[1]),
+              (0...23).contains(h), (0...59).contains(m), parts[1].count == 2 else {
+            throw MethError(.invalidDuration, "Invalid time “\(text)”. Use 24-hour HH:MM, e.g. 17:30.")
+        }
+        guard let next = calendar.nextDate(after: now, matching: DateComponents(hour: h, minute: m, second: 0),
+                                           matchingPolicy: .nextTime) else {
+            throw MethError(.invalidDuration, "Invalid time “\(text)”.")
+        }
+        return max(1, Int(next.timeIntervalSince(now).rounded(.up)))
     }
 
     static func describe(_ e: DurationParseError, input: String) -> String {
@@ -156,7 +209,11 @@ public enum CLIOutput {
         obj.append(("startedAt", s.startedAt.map { .string(ISO8601.string(from: $0)) } ?? .null))
         obj.append(("expiresAt", s.expiresAt.map { .string(ISO8601.string(from: $0)) } ?? .null))
         obj.append(("source", s.source.map { .string($0.rawValue) } ?? .null))
+        obj.append(("whileProcess", s.watchedProcess.map { .object([("pid", .int(Int($0.pid))), ("name", .string($0.name))]) } ?? .null))
+        obj.append(("lastEndReason", s.lastEndReason.map { .string($0.rawValue) } ?? .null))
         obj.append(("allowOverdoseFromCLI", .bool(s.preferences.allowOverdoseFromCLI)))
+        obj.append(("endBelowBatteryPercent", s.preferences.endBelowBatteryPercent.map { .int($0) } ?? .null))
+        obj.append(("endOnBatteryPower", .bool(s.preferences.endOnBatteryPower)))
         obj.append(("warnings", .array(warnings.map(errorObject))))
         return JSONValue.object(obj).render()
     }
@@ -192,6 +249,9 @@ public enum CLIOutput {
                 lines.append("\(strings.label(.remaining)): \(RemainingFormatter.clock(r))")
             } else {
                 lines.append("\(strings.label(.remaining)): \(strings.label(.indefinite))")
+            }
+            if let w = s.watchedProcess {
+                lines.append("\(strings.label(.untilQuit)): \(w.name) (PID \(w.pid))")
             }
         }
         return lines.joined(separator: "\n")

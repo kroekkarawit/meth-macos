@@ -85,12 +85,12 @@ final class CLIParserTests: XCTestCase {
     func testDocumentedCommands() throws {
         XCTAssertEqual(try parse("sober").command, .sober)
         XCTAssertEqual(try parse("stop").command, .sober)
-        XCTAssertEqual(try parse("bump").command, .activate(.bump, .indefinite))
-        XCTAssertEqual(try parse("bump --for 30m").command, .activate(.bump, .seconds(1800)))
-        XCTAssertEqual(try parse("high").command, .activate(.high, .indefinite))
-        XCTAssertEqual(try parse("high --for 2h").command, .activate(.high, .seconds(7200)))
-        XCTAssertEqual(try parse("high --for=90m").command, .activate(.high, .seconds(5400)))
-        XCTAssertEqual(try parse("overdose --for 1h").command, .activate(.overdose, .seconds(3600)))
+        XCTAssertEqual(try parse("bump").command, .activate(.bump, .indefinite, whilePID: nil))
+        XCTAssertEqual(try parse("bump --for 30m").command, .activate(.bump, .seconds(1800), whilePID: nil))
+        XCTAssertEqual(try parse("high").command, .activate(.high, .indefinite, whilePID: nil))
+        XCTAssertEqual(try parse("high --for 2h").command, .activate(.high, .seconds(7200), whilePID: nil))
+        XCTAssertEqual(try parse("high --for=90m").command, .activate(.high, .seconds(5400), whilePID: nil))
+        XCTAssertEqual(try parse("overdose --for 1h").command, .activate(.overdose, .seconds(3600), whilePID: nil))
         XCTAssertEqual(try parse("status").command, .status)
         XCTAssertTrue(try parse("status --json").json)
         XCTAssertEqual(try parse("version").command, .version)
@@ -101,8 +101,8 @@ final class CLIParserTests: XCTestCase {
     }
 
     func testFlagOrderDoesNotMatter() throws {
-        XCTAssertEqual(try parse("--json high --for 2h"), CLIInvocation(command: .activate(.high, .seconds(7200)), json: true))
-        XCTAssertEqual(try parse("--for 15m bump").command, .activate(.bump, .seconds(900)))
+        XCTAssertEqual(try parse("--json high --for 2h"), CLIInvocation(command: .activate(.high, .seconds(7200), whilePID: nil), json: true))
+        XCTAssertEqual(try parse("--for 15m bump").command, .activate(.bump, .seconds(900), whilePID: nil))
     }
 
     func testLanguageFlag() throws {

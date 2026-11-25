@@ -7,6 +7,10 @@ import MethCore
 final class AppController: NSObject, NSApplicationDelegate, NSPopoverDelegate, MenuBarActions {
     let model = SessionModel()
     let updates = UpdateManager()
+    let automation = AutomationSettings()
+    private var shortcuts: GlobalShortcuts?
+    private var rules: AutomaticRules?
+    private var away: AwayHelper?
     private var statusItem: NSStatusItem!
     private let popover = NSPopover()
     private var observers: [NSObjectProtocol] = []
@@ -34,7 +38,8 @@ final class AppController: NSObject, NSApplicationDelegate, NSPopoverDelegate, M
         }
         updateStatusItem()
 
-        let hosting = NSHostingController(rootView: MenuBarView(model: model, updates: updates, actions: self)
+        let hosting = NSHostingController(rootView: MenuBarView(model: model, updates: updates,
+                                                                automation: automation, actions: self)
             .environment(keyboardNavigation))
         hosting.sizingOptions = [.preferredContentSize]
         popover.contentViewController = hosting
@@ -43,8 +48,19 @@ final class AppController: NSObject, NSApplicationDelegate, NSPopoverDelegate, M
         popover.delegate = self
 
         observers.append(NotificationCenter.default.addObserver(forName: .methSessionChanged, object: nil, queue: .main) { [weak self] _ in
-            MainActor.assumeIsolated { self?.updateStatusItem() }
+            MainActor.assumeIsolated {
+                self?.updateStatusItem()
+                self?.away?.update()
+            }
         })
+
+        shortcuts = GlobalShortcuts { [weak self] mode in self?.select(mode) }
+        if automation.globalShortcuts { shortcuts?.register() }
+        rules = AutomaticRules(settings: automation, model: model) { [weak self] mode in
+            await self?.startSession(mode, duration: .indefinite)
+        }
+        away = AwayHelper(settings: automation, model: model)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in self?.rules?.evaluate() }
 
         // UI tests and screenshots open the popover immediately.
         let showNow = args.contains("--show-popover")
@@ -145,13 +161,121 @@ final class AppController: NSObject, NSApplicationDelegate, NSPopoverDelegate, M
             soberUp()
             return
         }
-        Task {
-            if mode == .overdose {
-                await requestOverdose()
-            } else {
-                await model.activate(mode)
-            }
+        Task { await startSession(mode) }
+    }
+
+    /// The one path that starts a session (popover, hotkeys, rules, "Until…", "While app…").
+    /// Overdose always goes through the helper check and consent dialogs.
+    func startSession(_ mode: SleepMode, duration: MethDuration? = nil, whilePID: Int32? = nil) async {
+        let d = duration ?? model.selectedDuration
+        guard mode == .overdose else {
+            await model.activate(mode, duration: d, whilePID: whilePID)
+            return
         }
+        guard await ensureHelperReady() else { return }
+        let indefinite = d.isIndefinite
+        if indefinite {
+            guard confirmIndefiniteOverdose() else { return }
+        } else if !UserDefaults.standard.bool(forKey: Self.overdoseAcknowledgedKey) {
+            guard confirmTimedOverdose() else { return }
+        }
+        await model.activate(.overdose, duration: d, whilePID: whilePID, confirmIndefiniteOverdose: indefinite)
+    }
+
+    // MARK: More time options
+
+    func chooseCustomDuration() {
+        let alert = makeAlert(title: String(localized: "Custom Duration"),
+                              text: String(localized: "Enter a duration such as 45m, 2h or 1h30m."))
+        let field = NSTextField(frame: NSRect(x: 0, y: 0, width: 220, height: 24))
+        field.placeholderString = "1h30m"
+        if let s = model.selectedDuration.seconds { field.stringValue = MethDuration.compact(s) }
+        alert.accessoryView = field
+        alert.addButton(withTitle: String(localized: "Set"))
+        alert.addButton(withTitle: String(localized: "Cancel"))
+        alert.window.initialFirstResponder = field
+        guard alert.runModal() == .alertFirstButtonReturn else { return }
+        let maxSeconds = model.mode == .overdose ? MethDuration.maximumOverdoseSeconds : MethDuration.maximumSeconds
+        guard let d = try? DurationParser.parse(field.stringValue, maximumSeconds: maxSeconds) else {
+            showError(String(localized: "That isn’t a valid duration."),
+                      detail: String(localized: "Use forms like 45m, 2h or 1h30m (up to 30 days; 24 hours for Overdose)."))
+            return
+        }
+        durationChanged(to: d)
+    }
+
+    func chooseUntilTime() {
+        let mode = model.targetMode
+        let alert = makeAlert(title: String(localized: "Stay Awake Until…"),
+                              text: String(localized: "\(mode.displayName) will end at this time."))
+        let picker = NSDatePicker(frame: NSRect(x: 0, y: 0, width: 120, height: 24))
+        picker.datePickerElements = .hourMinute
+        picker.datePickerStyle = .textFieldAndStepper
+        picker.dateValue = Date().addingTimeInterval(3600)
+        picker.sizeToFit()
+        alert.accessoryView = picker
+        alert.addButton(withTitle: String(localized: "Start"))
+        alert.addButton(withTitle: String(localized: "Cancel"))
+        guard alert.runModal() == .alertFirstButtonReturn else { return }
+        let cal = Calendar.current
+        let c = cal.dateComponents([.hour, .minute], from: picker.dateValue)
+        guard let secs = try? CLIParser.secondsUntil(String(format: "%02d:%02d", c.hour ?? 0, c.minute ?? 0),
+                                                     now: Date(), calendar: cal) else { return }
+        Task { await startSession(mode, duration: .seconds(secs)) }
+    }
+
+    func startWhileAppRuns(pid: Int32) {
+        Task { await startSession(model.targetMode, duration: .indefinite, whilePID: pid) }
+    }
+
+    func extendSession(bySeconds seconds: Int) {
+        Task { await model.extend(bySeconds: seconds) }
+    }
+
+    // MARK: Battery, automation, shortcuts
+
+    func setBatteryLimit(_ percent: Int?) {
+        Task { await model.setBatteryRules(endBelowPercent: percent,
+                                           endOnBatteryPower: model.snapshot.preferences.endOnBatteryPower) }
+    }
+
+    func setEndOnBatteryPower(_ on: Bool) {
+        Task { await model.setBatteryRules(endBelowPercent: model.snapshot.preferences.endBelowBatteryPercent,
+                                           endOnBatteryPower: on) }
+    }
+
+    func setRule(whileCharging mode: SleepMode?) {
+        automation.whileCharging = mode
+        rules?.evaluate()
+    }
+
+    func setRule(withExternalDisplay mode: SleepMode?) {
+        automation.withExternalDisplay = mode
+        rules?.evaluate()
+    }
+
+    func setGlobalShortcuts(_ on: Bool) {
+        automation.globalShortcuts = on
+        if on { shortcuts?.register() } else { shortcuts?.unregister() }
+    }
+
+    func setKeepStatusActive(_ on: Bool) {
+        if on, !AwayHelper.canPostEvents {
+            let alert = makeAlert(
+                title: String(localized: "Allow Meth to move the pointer?"),
+                text: String(localized: "To keep chat apps showing you as active, Meth nudges the pointer by one pixel while you’re away. macOS will ask you to allow Meth in Privacy & Security › Accessibility."))
+            alert.addButton(withTitle: String(localized: "Continue"))
+            alert.addButton(withTitle: String(localized: "Cancel"))
+            guard alert.runModal() == .alertFirstButtonReturn else { return }
+            AwayHelper.requestPostEventAccess()
+        }
+        automation.keepStatusActive = on
+        away?.update()
+    }
+
+    func setLockAfterIdle(minutes: Int?) {
+        automation.lockAfterIdleMinutes = minutes
+        away?.update()
     }
 
     func soberUp() {
@@ -180,17 +304,6 @@ final class AppController: NSObject, NSApplicationDelegate, NSPopoverDelegate, M
     }
 
     // MARK: Overdose consent
-
-    private func requestOverdose() async {
-        guard await ensureHelperReady() else { return }
-        let indefinite = model.selectedDuration.isIndefinite
-        if indefinite {
-            guard confirmIndefiniteOverdose() else { return }
-        } else if !UserDefaults.standard.bool(forKey: Self.overdoseAcknowledgedKey) {
-            guard confirmTimedOverdose() else { return }
-        }
-        await model.activate(.overdose, confirmIndefiniteOverdose: indefinite)
-    }
 
     /// Makes sure the privileged helper is registered *and* approved by the user.
     private func ensureHelperReady() async -> Bool {

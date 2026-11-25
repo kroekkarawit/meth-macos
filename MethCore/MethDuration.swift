@@ -29,7 +29,7 @@ public enum MethDuration: Equatable, Hashable, Sendable, Codable {
         }
     }
 
-    static func compact(_ total: Int) -> String {
+    public static func compact(_ total: Int) -> String {
         var rest = total
         var out = ""
         let d = rest / 86400; rest %= 86400

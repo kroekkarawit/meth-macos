@@ -14,6 +14,17 @@ protocol MenuBarActions: AnyObject {
     var showsTimeInMenuBar: Bool { get }
     func setShowTimeInMenuBar(_ show: Bool)
     func setLanguage(_ choice: LanguageManager.Choice)
+    func chooseCustomDuration()
+    func chooseUntilTime()
+    func startWhileAppRuns(pid: Int32)
+    func extendSession(bySeconds seconds: Int)
+    func setBatteryLimit(_ percent: Int?)
+    func setEndOnBatteryPower(_ on: Bool)
+    func setRule(whileCharging mode: SleepMode?)
+    func setRule(withExternalDisplay mode: SleepMode?)
+    func setGlobalShortcuts(_ on: Bool)
+    func setKeepStatusActive(_ on: Bool)
+    func setLockAfterIdle(minutes: Int?)
     func checkForUpdates()
     func showAbout()
     func quit()
@@ -22,6 +33,7 @@ protocol MenuBarActions: AnyObject {
 struct MenuBarView: View {
     @Bindable var model: SessionModel
     let updates: UpdateManager
+    let automation: AutomationSettings
     weak var actions: MenuBarActions?
 
     var body: some View {
@@ -62,6 +74,7 @@ struct MenuBarView: View {
                     get: { model.selectedDuration },
                     set: { actions?.durationChanged(to: $0) }
                 ))
+                MoreTimeMenu(model: model, actions: actions)
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
@@ -74,11 +87,15 @@ struct MenuBarView: View {
                 NoticeView(text: ErrorText.localized(warning), isError: false)
                     .padding(.horizontal, 14)
                     .padding(.bottom, 10)
+            } else if let ended = EndReasonText.recent(model.snapshot) {
+                NoticeView(text: ended, isError: false)
+                    .padding(.horizontal, 14)
+                    .padding(.bottom, 10)
             }
 
             MenuSeparator()
 
-            FooterView(model: model, updates: updates, actions: actions)
+            FooterView(model: model, updates: updates, automation: automation, actions: actions)
                 .padding(.horizontal, 5)
                 .padding(.vertical, 5)
         }
@@ -189,8 +206,14 @@ struct StatusLine: View {
         Group {
             if model.mode.isActive, model.snapshot.remainingSeconds != nil {
                 TimelineView(.periodic(from: .now, by: 1)) { _ in
-                    text(String(localized: "\(model.mode.displayName) · \(RemainingFormatter.compactClock(model.remainingSeconds() ?? 0)) left"))
+                    if let app = model.snapshot.watchedProcess?.name {
+                        text(String(localized: "\(model.mode.displayName) · \(RemainingFormatter.compactClock(model.remainingSeconds() ?? 0)) left · \(app)"))
+                    } else {
+                        text(String(localized: "\(model.mode.displayName) · \(RemainingFormatter.compactClock(model.remainingSeconds() ?? 0)) left"))
+                    }
                 }
+            } else if model.mode.isActive, let app = model.snapshot.watchedProcess?.name {
+                text(String(localized: "\(model.mode.displayName) · Until \(app) quits"))
             } else if model.mode.isActive {
                 text(String(localized: "\(model.mode.displayName) · No time limit"))
             } else {
@@ -306,6 +329,82 @@ struct DurationSelector: View {
     }
 }
 
+/// "⋯" next to the duration picker: custom duration, until a time, while an app runs, add time.
+struct MoreTimeMenu: View {
+    let model: SessionModel
+    weak var actions: MenuBarActions?
+
+    private var isCustom: Bool { !MethDuration.presets.contains(model.selectedDuration) }
+
+    var body: some View {
+        Menu {
+            Button("Custom Duration…") { actions?.chooseCustomDuration() }
+            Button("Until a Time…") { actions?.chooseUntilTime() }
+            Menu("While an App Is Running") {
+                ForEach(RunningApps.list(), id: \.pid) { app in
+                    Button { actions?.startWhileAppRuns(pid: app.pid) } label: {
+                        Label { Text(verbatim: app.name) } icon: { Image(nsImage: app.icon) }
+                    }
+                }
+            }
+            Divider()
+            Section("Add Time") {
+                Button("15 Minutes") { actions?.extendSession(bySeconds: 900) }
+                Button("30 Minutes") { actions?.extendSession(bySeconds: 1800) }
+                Button("1 Hour") { actions?.extendSession(bySeconds: 3600) }
+            }
+            .disabled(!model.canExtend)
+        } label: {
+            if isCustom, let s = model.selectedDuration.seconds {
+                Text(verbatim: MethDuration.compact(s)).font(.system(size: 12).monospacedDigit())
+            } else {
+                Image(systemName: "ellipsis.circle")
+            }
+        }
+        .menuStyle(.borderlessButton)
+        .menuIndicator(.hidden)
+        .fixedSize()
+        .focusEffectDisabled()
+        .help(String(localized: "More Time Options"))
+        .accessibilityLabel(Text("More Time Options"))
+        .accessibilityIdentifier("duration.more")
+    }
+}
+
+/// Regular (Dock) apps the user can tie a session to.
+enum RunningApps {
+    struct App { let pid: Int32; let name: String; let icon: NSImage }
+
+    @MainActor static func list() -> [App] {
+        NSWorkspace.shared.runningApplications
+            .filter { $0.activationPolicy == .regular && $0.processIdentifier != getpid() }
+            .compactMap { app -> App? in
+                guard let name = app.localizedName else { return nil }
+                let icon = (app.icon ?? NSImage()).copy() as! NSImage
+                icon.size = NSSize(width: 16, height: 16)
+                return App(pid: app.processIdentifier, name: name, icon: icon)
+            }
+            .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+    }
+}
+
+/// Why the last session ended, shown for a while after an automatic end.
+enum EndReasonText {
+    static func recent(_ s: SessionSnapshot, now: Date = Date()) -> String? {
+        guard s.mode == .sober, let reason = s.lastEndReason, let at = s.lastEndedAt,
+              now.timeIntervalSince(at) < 3600 else { return nil }
+        switch reason {
+        case .processExited: return String(localized: "Ended because the app you chose quit.")
+        case .lowBattery:
+            let limit = s.preferences.endBelowBatteryPercent ?? AgentPreferences.defaultBatteryLimit
+            return String(localized: "Ended because the battery reached \(limit)%.")
+        case .onBatteryPower: return String(localized: "Ended because the power adapter was disconnected.")
+        case .helperRestored: return String(localized: "Overdose ended and normal sleep was restored.")
+        case .manual, .expired: return nil
+        }
+    }
+}
+
 // MARK: - Notices
 
 struct NoticeView: View {
@@ -330,6 +429,7 @@ struct NoticeView: View {
 struct FooterView: View {
     let model: SessionModel
     let updates: UpdateManager
+    let automation: AutomationSettings
     weak var actions: MenuBarActions?
 
     @State private var launchAtLogin = BackgroundServices.launchAtLogin
@@ -348,6 +448,49 @@ struct FooterView: View {
                 Toggle("Show Time Left in Menu Bar", isOn: Binding(
                     get: { showTime },
                     set: { actions?.setShowTimeInMenuBar($0); showTime = $0 }
+                ))
+                Divider()
+                Menu("Automatically Stay Awake") {
+                    Picker("While Charging", selection: Binding(
+                        get: { automation.whileCharging },
+                        set: { actions?.setRule(whileCharging: $0) }
+                    )) { RuleChoices() }
+                    Picker("With an External Display", selection: Binding(
+                        get: { automation.withExternalDisplay },
+                        set: { actions?.setRule(withExternalDisplay: $0) }
+                    )) { RuleChoices() }
+                }
+                Menu("Battery") {
+                    Picker("End Session at Low Battery", selection: Binding(
+                        get: { model.snapshot.preferences.endBelowBatteryPercent },
+                        set: { actions?.setBatteryLimit($0) }
+                    )) {
+                        Text("Off").tag(Int?.none)
+                        ForEach(AgentPreferences.allowedBatteryLimits, id: \.self) { Text(verbatim: "\($0)%").tag(Int?.some($0)) }
+                    }
+                    Toggle("End Session on Battery Power", isOn: Binding(
+                        get: { model.snapshot.preferences.endOnBatteryPower },
+                        set: { actions?.setEndOnBatteryPower($0) }
+                    ))
+                }
+                Menu("While You’re Away") {
+                    Toggle("Keep Chat Apps Showing You as Active", isOn: Binding(
+                        get: { automation.keepStatusActive },
+                        set: { actions?.setKeepStatusActive($0) }
+                    ))
+                    Picker("Lock Screen When Idle", selection: Binding(
+                        get: { automation.lockAfterIdleMinutes },
+                        set: { actions?.setLockAfterIdle(minutes: $0) }
+                    )) {
+                        Text("Never").tag(Int?.none)
+                        ForEach(AutomationSettings.lockChoices, id: \.self) { m in
+                            Text("After \(m) Minutes").tag(Int?.some(m))
+                        }
+                    }
+                }
+                Toggle("Global Keyboard Shortcuts (⌃⌥⌘0–3)", isOn: Binding(
+                    get: { automation.globalShortcuts },
+                    set: { actions?.setGlobalShortcuts($0) }
                 ))
                 Divider()
                 Button(helperTitle) { actions?.manageOverdoseHelper() }
@@ -418,6 +561,15 @@ struct FooterView: View {
     }
 }
 
+/// Off / Bump / High choices for automatic rules (Overdose is never automatic).
+struct RuleChoices: View {
+    var body: some View {
+        Text("Off").tag(SleepMode?.none)
+        Text(verbatim: "Bump").tag(SleepMode?.some(.bump))
+        Text(verbatim: "High").tag(SleepMode?.some(.high))
+    }
+}
+
 /// Localized, user-facing text for agent errors.
 enum ErrorText {
     static func localized(_ e: MethError) -> String {
@@ -444,6 +596,12 @@ enum ErrorText {
             String(localized: "Invalid request.")
         case .unauthorizedClient:
             String(localized: "Not authorized.")
+        case .processNotFound:
+            String(localized: "That app is no longer running.")
+        case .notExtendable:
+            String(localized: "Only a session with a time limit can be extended.")
+        case .batteryLow:
+            String(localized: "The battery is below the limit set in Meth › Battery. Connect power or change the limit.")
         case .internal:
             String(localized: "Something went wrong. Please try again.")
         }

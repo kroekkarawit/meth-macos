@@ -182,3 +182,46 @@ func eventually(timeout: TimeInterval = 2, _ condition: @escaping () async -> Bo
     }
     return await condition()
 }
+
+/// Process watcher double: processes "run" until `exit(pid:)` is called.
+final class FakeProcesses: ProcessWatching, @unchecked Sendable {
+    private let lock = NSLock()
+    private var running: [Int32: WatchedProcess] = [:]
+    private var watchers: [Int32: [@Sendable () -> Void]] = [:]
+
+    func launch(pid: Int32, name: String, start: UInt64 = 1) {
+        lock.withLock { running[pid] = WatchedProcess(pid: pid, name: name, startTime: start) }
+    }
+
+    func exit(pid: Int32) {
+        let handlers: [@Sendable () -> Void] = lock.withLock {
+            running[pid] = nil
+            return watchers.removeValue(forKey: pid) ?? []
+        }
+        handlers.forEach { $0() }
+    }
+
+    func identity(pid: Int32) -> WatchedProcess? { lock.withLock { running[pid] } }
+
+    func watch(_ process: WatchedProcess, onExit: @escaping @Sendable () -> Void) -> ScheduledTask {
+        lock.lock()
+        if running[process.pid]?.startTime != process.startTime {
+            lock.unlock(); onExit(); return NoopTask()
+        }
+        watchers[process.pid, default: []].append(onExit)
+        lock.unlock()
+        return NoopTask()
+    }
+
+    struct NoopTask: ScheduledTask { func cancel() {} }
+}
+
+final class FakePower: PowerSourceReading, @unchecked Sendable {
+    private let lock = NSLock()
+    private var state: PowerSourceState
+    init(_ state: PowerSourceState = PowerSourceState(hasBattery: true, onBattery: false, batteryPercent: 80)) {
+        self.state = state
+    }
+    func set(_ s: PowerSourceState) { lock.withLock { state = s } }
+    func current() -> PowerSourceState { lock.withLock { state } }
+}
