@@ -126,17 +126,6 @@
 		21807DEA106F13DA481966C3 /* Embed Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents/Helpers;
-			dstSubfolderSpec = 1;
-			files = (
-				8334324E6280A17111901C31 /* MethCLI in Embed Dependencies */,
-			);
-			name = "Embed Dependencies";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6F0E8D1F6BD1086BC1D95A3C /* Embed Dependencies */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
@@ -146,23 +135,34 @@
 			name = "Embed Dependencies";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E22EDF86A1E8CF39C776F605 /* CopyFiles */ = {
+		6F0E8D1F6BD1086BC1D95A3C /* Embed Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents/Library/LaunchDaemons;
+			dstPath = Contents/Helpers;
 			dstSubfolderSpec = 1;
 			files = (
-				C0E1BF98F431B4FCAE612D54 /* io.github.kroekkarawit.Meth.Helper.plist in CopyFiles */,
+				8334324E6280A17111901C31 /* MethCLI in Embed Dependencies */,
 			);
+			name = "Embed Dependencies";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F0B6C7BB89AEC9CF5AAC5B99 /* CopyFiles */ = {
+		E22EDF86A1E8CF39C776F605 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = Contents/Library/LaunchAgents;
 			dstSubfolderSpec = 1;
 			files = (
 				0D76CF57628808C380E0FD5A /* io.github.kroekkarawit.Meth.Agent.plist in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0B6C7BB89AEC9CF5AAC5B99 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchDaemons;
+			dstSubfolderSpec = 1;
+			files = (
+				C0E1BF98F431B4FCAE612D54 /* io.github.kroekkarawit.Meth.Helper.plist in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
