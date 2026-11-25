@@ -59,7 +59,7 @@ struct MenuBarView: View {
                         title: "Overdose", subtitle: String(localized: "Disable system sleep"),
                         model: model, shortcut: "3") { actions?.select(.overdose) }
             }
-            .padding(.horizontal, 5)
+            .padding(.horizontal, 6)
             .padding(.vertical, 5)
 
             MenuSeparator()
@@ -96,8 +96,9 @@ struct MenuBarView: View {
             MenuSeparator()
 
             FooterView(model: model, updates: updates, automation: automation, actions: actions)
-                .padding(.horizontal, 5)
-                .padding(.vertical, 5)
+                .padding(.horizontal, 6)
+                .padding(.top, 4)
+                .padding(.bottom, 8)
         }
         .frame(width: 320)
     }
@@ -137,7 +138,7 @@ struct RowHighlight: ViewModifier {
     func body(content: Content) -> some View {
         content
             .background(
-                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                RoundedRectangle(cornerRadius: 7, style: .continuous)
                     .fill(hovering || (focused && keyboard.isActive) ? Color.primary.opacity(0.08) : .clear)
             )
             .onHover { hovering = $0 }
@@ -532,7 +533,7 @@ struct FooterView: View {
                     .foregroundStyle(.tertiary)
             }
             .padding(.horizontal, 9)
-            .frame(maxWidth: .infinity, minHeight: 24)
+            .frame(maxWidth: .infinity, minHeight: 28)
             .contentShape(Rectangle())
             .modifier(RowHighlight())
         }
