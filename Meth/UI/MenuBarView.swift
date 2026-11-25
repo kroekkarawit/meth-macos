@@ -26,7 +26,7 @@ struct MenuBarView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HeaderView(model: model)
+            HeaderView(model: model) { actions?.quit() }
                 .padding(.horizontal, 14)
                 .padding(.top, 12)
                 .padding(.bottom, 8)
@@ -139,15 +139,45 @@ final class KeyboardNavigation {
 
 struct HeaderView: View {
     let model: SessionModel
+    var onQuit: () -> Void = {}
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(verbatim: "Meth")
-                .font(.system(size: 13, weight: .bold))
-            StatusLine(model: model)
+        HStack(alignment: .top, spacing: 8) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(verbatim: "Meth")
+                    .font(.system(size: 13, weight: .bold))
+                StatusLine(model: model)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityElement(children: .combine)
+
+            QuitButton(action: onQuit)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityElement(children: .combine)
+    }
+}
+
+/// Small borderless ⏻ button in the header, like other menu bar utilities.
+struct QuitButton: View {
+    let action: () -> Void
+    @State private var hovering = false
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: "power")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(hovering ? .primary : .secondary)
+                .frame(width: 24, height: 24)
+                .background(
+                    Circle().fill(hovering ? Color.primary.opacity(0.1) : .clear)
+                )
+                .contentShape(Circle())
+        }
+        .buttonStyle(.plain)
+        .focusEffectDisabled()
+        .onHover { hovering = $0 }
+        .help(String(localized: "Quit Meth"))
+        .accessibilityLabel(Text("Quit Meth"))
+        .accessibilityIdentifier("quit")
     }
 }
 

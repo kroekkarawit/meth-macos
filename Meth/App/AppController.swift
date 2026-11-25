@@ -368,7 +368,26 @@ final class AppController: NSObject, NSApplicationDelegate, NSPopoverDelegate, M
     }
 
     func quit() {
-        NSApp.terminate(nil)
+        // The agent owns the session, so it would keep the Mac awake after the app quits.
+        // Ask instead of surprising the user.
+        guard model.mode.isActive else { NSApp.terminate(nil); return }
+        let alert = makeAlert(
+            title: String(localized: "Quit Meth?"),
+            text: String(localized: "\(model.mode.displayName) is still on. Do you want your Mac to sleep normally again?"))
+        alert.addButton(withTitle: String(localized: "Sober and Quit"))
+        alert.addButton(withTitle: String(localized: "Keep Awake and Quit"))
+        alert.addButton(withTitle: String(localized: "Cancel"))
+        switch alert.runModal() {
+        case .alertFirstButtonReturn:
+            Task {
+                await model.sober()
+                NSApp.terminate(nil)
+            }
+        case .alertSecondButtonReturn:
+            NSApp.terminate(nil)
+        default:
+            break
+        }
     }
 
     // MARK: Alerts

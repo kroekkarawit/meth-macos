@@ -24,6 +24,29 @@
         }
       }
     },
+    "%@ is still on. Do you want your Mac to sleep normally again?": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ is still on. Do you want your Mac to sleep normally again?"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ยังเปิดอยู่ ต้องการให้ Mac กลับไปหลับตามปกติไหม"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 仍在运行。要让 Mac 恢复正常睡眠吗？"
+          }
+        }
+      }
+    },
     "%@ remaining": {
       "extractionState": "manual",
       "localizations": {
@@ -829,6 +852,29 @@
         }
       }
     },
+    "Keep Awake and Quit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep Awake and Quit"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ไม่ให้หลับต่อ แล้วออก"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保持唤醒并退出"
+          }
+        }
+      }
+    },
     "Keep Mac awake": {
       "extractionState": "manual",
       "localizations": {
@@ -1404,6 +1450,29 @@
         }
       }
     },
+    "Quit Meth?": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quit Meth?"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ออกจาก Meth หรือไม่"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退出 Meth？"
+          }
+        }
+      }
+    },
     "Reinstall Command Line Tool…": {
       "extractionState": "manual",
       "localizations": {
@@ -1630,6 +1699,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sober"
+          }
+        }
+      }
+    },
+    "Sober and Quit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sober and Quit"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sober แล้วออก"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sober 并退出"
           }
         }
       }
