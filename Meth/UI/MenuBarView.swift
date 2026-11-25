@@ -34,6 +34,9 @@ struct MenuBarView: View {
             MenuSeparator()
 
             VStack(spacing: 0) {
+                ModeRow(mode: .sober, symbol: "moon.fill",
+                        title: "Sober", subtitle: String(localized: "Mac sleeps as usual"),
+                        model: model, shortcut: "0") { actions?.soberUp() }
                 ModeRow(mode: .bump, symbol: "bolt.fill",
                         title: "Bump", subtitle: String(localized: "Keep Mac awake"),
                         model: model, shortcut: "1") { actions?.select(.bump) }
@@ -62,12 +65,6 @@ struct MenuBarView: View {
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
-
-            SoberButton(isSober: model.mode == .sober, isPending: model.pendingMode == .sober) {
-                actions?.soberUp()
-            }
-            .padding(.horizontal, 14)
-            .padding(.bottom, 12)
 
             if let error = model.lastError {
                 NoticeView(text: ErrorText.localized(error), isError: true)
@@ -193,7 +190,13 @@ struct ModeRow: View {
 
     private var isSelected: Bool { model.mode == mode }
     private var isPending: Bool { model.pendingMode == mode }
-    private var tint: Color { mode == .overdose ? .orange : .accentColor }
+    private var tint: Color {
+        switch mode {
+        case .overdose: .orange
+        case .sober: .gray       // matches the grey menu bar icon
+        default: .accentColor
+        }
+    }
 
     var body: some View {
         Button(action: action) {
@@ -231,9 +234,9 @@ struct ModeRow: View {
         .keyboardShortcut(shortcut, modifiers: [])
         .focusEffectDisabled()
         .animation(.easeInOut(duration: 0.15), value: isSelected)
-        .help(isSelected ? String(localized: "Click again to turn off") : "")
+        .help(isSelected && mode != .sober ? String(localized: "Click again to turn off") : "")
         .accessibilityLabel(Text(verbatim: "\(title), \(subtitle)"))
-        .accessibilityHint(isSelected ? Text("Click again to turn off") : Text(verbatim: ""))
+        .accessibilityHint(isSelected && mode != .sober ? Text("Click again to turn off") : Text(verbatim: ""))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
         .accessibilityIdentifier("mode.\(mode.rawValue)")
     }
@@ -271,41 +274,6 @@ struct DurationSelector: View {
         case .seconds(let s) where s < 3600: String(localized: "\(s / 60) minutes")
         case .seconds(let s): String(localized: "\(s / 3600) hours")
         }
-    }
-}
-
-// MARK: - Sober
-
-/// A standard macOS push button, full width. Disabled while already Sober,
-/// so it only looks pressable when pressing it would change something.
-struct SoberButton: View {
-    let isSober: Bool
-    let isPending: Bool
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 6) {
-                if isPending {
-                    ProgressView().controlSize(.small)
-                } else {
-                    Image(systemName: isSober ? "checkmark" : "moon.zzz.fill")
-                }
-                if isSober {
-                    Text("Sleeping Normally")
-                } else {
-                    Text("Sober — Restore Normal Sleep")
-                }
-            }
-            .frame(maxWidth: .infinity)
-        }
-        .buttonStyle(.bordered)
-        .controlSize(.large)
-        .disabled(isSober || isPending)
-        .keyboardShortcut("0", modifiers: [])
-        .focusEffectDisabled()
-        .accessibilityAddTraits(isSober ? .isSelected : [])
-        .accessibilityIdentifier("mode.sober")
     }
 }
 

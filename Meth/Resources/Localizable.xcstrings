@@ -1013,6 +1013,29 @@
         }
       }
     },
+    "Mac sleeps as usual": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mac sleeps as usual"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mac หลับตามปกติ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mac 正常睡眠"
+          }
+        }
+      }
+    },
     "Meth Settings": {
       "extractionState": "manual",
       "localizations": {
@@ -1588,29 +1611,6 @@
         }
       }
     },
-    "Sleeping Normally": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sleeping Normally"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "หลับตามปกติ"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "正常睡眠中"
-          }
-        }
-      }
-    },
     "Sober": {
       "extractionState": "manual",
       "localizations": {
@@ -1630,29 +1630,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sober"
-          }
-        }
-      }
-    },
-    "Sober — Restore Normal Sleep": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sober — Restore Normal Sleep"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sober — กลับสู่การหลับปกติ"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sober — 恢复正常睡眠"
           }
         }
       }
