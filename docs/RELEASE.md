@@ -56,9 +56,19 @@ Losing it means existing installs can no longer verify updates.
    creates the GitHub Release (marked *latest*) with the DMG, zip, `checksums.txt` and the cumulative `appcast.xml`,
    then runs `Scripts/verify-release.sh` (downloads, checksums, appcast entry, Gatekeeper).
 
-   The feed URL baked into the app is `https://github.com/kroekkarawit/meth-macos/releases/latest/download/appcast.xml`.
-   GitHub redirects it to the newest release's asset, and each release's appcast contains every earlier version,
-   so no GitHub Pages or Actions are needed to serve updates.
+   Each release's `appcast.xml` contains every earlier version. The app's feed URL is
+   `https://meth.shrill-frost-3471.workers.dev/appcast.xml`: a Cloudflare Worker (`site/`) that serves a 5-minute cached copy of
+   `…/releases/latest/download/appcast.xml`, plus `/download` (latest DMG), `/latest.json` and a landing page.
+   Files stay on GitHub Releases; moving them later (e.g. to R2) only means changing the Worker.
+
+## The download site (Cloudflare Worker)
+
+```bash
+cd site && wrangler deploy        # needs `wrangler login`
+```
+
+`site/wrangler.toml` sets the GitHub repository. Endpoints: `/`, `/download`, `/download/zip`, `/appcast.xml`,
+`/latest.json`, `/icon.png`. It keeps no state and sets no cookies.
 
 ## Cutting a release from CI
 

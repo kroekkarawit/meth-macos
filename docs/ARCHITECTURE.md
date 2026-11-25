@@ -106,7 +106,7 @@ it is not stored per power source, so restoring one value covers AC and battery.
 ## Updates
 
 Sparkle 2 (`SPUStandardUpdaterController`), EdDSA-signed archives. Both the archives and a cumulative HTTPS appcast
-are GitHub Release assets; the feed URL is `…/releases/latest/download/appcast.xml`. `sparkle:version` = `CFBundleVersion`, which only ever increases.
+are GitHub Release assets. The app reads the feed through a Cloudflare Worker (`https://meth.shrill-frost-3471.workers.dev/appcast.xml`, source in `site/`), which caches the latest release's appcast, so the URL stays stable if hosting changes. `sparkle:version` = `CFBundleVersion`, which only ever increases.
 After an update the app sees that the agent's version differs and sends `restartIfIdle`, so the new agent binary takes over
 without interrupting a session.
 

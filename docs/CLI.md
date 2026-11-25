@@ -28,9 +28,18 @@ Manual alternative: `ln -s /Applications/Meth.app/Contents/Helpers/meth /usr/loc
 | `meth high [--for D]` | Prevent idle system and display sleep. |
 | `meth overdose --for D` | High + system-wide `disablesleep`. `--for` is required, `D` ≤ 24h. Must be enabled in the app first. |
 | `meth sober` / `meth stop` | Release everything, restore original settings. Idempotent. |
+| `meth extend D` | Add time to the running timed session (same mode, same watched process). |
 | `meth status` | Current mode and remaining time. |
 | `meth version` / `--version` | Print version. |
 | `meth help` / `--help` | Usage. |
+
+Session options (bump/high/overdose):
+
+| Option | Effect |
+|---|---|
+| `--for D` | Stop after a duration. |
+| `--until HH:MM` | Stop at the next occurrence of that local time (24-hour). Counts as a duration for Overdose. |
+| `--while-pid PID` | Also stop when that process exits. Combine with `--for`/`--until` for whichever comes first. `--while-pid $$` ties the session to the current shell. |
 
 Global options: `--json` (machine-readable output), `--lang en|th|zh`.
 
@@ -83,7 +92,11 @@ Output is a single line.
   "startedAt": "2026-11-25T08:17:45Z",
   "expiresAt": "2026-11-25T10:17:45Z",
   "source": "cli",
+  "whileProcess": null,
+  "lastEndReason": null,
   "allowOverdoseFromCLI": false,
+  "endBelowBatteryPercent": 10,
+  "endOnBatteryPower": false,
   "warnings": []
 }
 ```
@@ -96,7 +109,13 @@ Output is a single line.
 | `remainingSeconds`, `durationSeconds` | int or null | null when sober or indefinite |
 | `startedAt`, `expiresAt` | string or null | `expiresAt` is recomputed at query time |
 | `source` | `"app" \| "cli" \| "system"` or null | Who started the session |
+| `whileProcess` | `{pid, name}` or null | Session ends when this process exits |
+| `lastEndReason` | `"manual" \| "expired" \| "processExited" \| "lowBattery" \| "onBatteryPower" \| "helperRestored"` or null | Why the previous session ended |
+| `endBelowBatteryPercent` | int or null | Battery limit (set in the app); null = off |
+| `endOnBatteryPower` | bool | Sessions end when the power adapter is disconnected |
 | `warnings` | array of `{code, message}` | Non-fatal, e.g. `restore_conflict` |
+
+New keys are only ever added, never renamed or removed, within `schemaVersion: 1`.
 
 Errors (with `--json`, written to **stdout**; otherwise a message on stderr):
 
@@ -110,13 +129,20 @@ Errors (with `--json`, written to **stdout**; otherwise a message on stderr):
 |---|---|---|
 | 0 | Success | — |
 | 1 | Internal error | `internal` |
-| 2 | Usage | `usage`, `unknown_command`, `invalid_duration`, `duration_required` |
+| 2 | Usage | `usage`, `unknown_command`, `invalid_duration`, `duration_required`, `process_not_found`, `not_extendable` |
 | 3 | Meth not reachable | `agent_unavailable` |
 | 4 | Overdose unavailable / not allowed | `helper_unavailable`, `helper_requires_approval`, `overdose_not_allowed`, `overdose_unsupported`, `indefinite_overdose_requires_confirmation` |
-| 5 | Power operation failed | `assertion_failed`, `privileged_operation_failed`, `restore_conflict` |
+| 5 | Power operation failed | `assertion_failed`, `privileged_operation_failed`, `restore_conflict`, `battery_low` |
 | 6 | Unauthorized | `unauthorized_client` |
 
 ## Shell patterns
+
+Simplest: tie the session to the shell or script, so it ends even if the script is killed:
+
+```bash
+meth high --while-pid $$ --for 4h
+make release
+```
 
 Keep awake for the duration of a command, then go back to sober:
 
@@ -153,7 +179,8 @@ Paste this into `AGENTS.md`, `CLAUDE.md` or your Codex instructions:
 
 ```markdown
 ## Keeping the Mac awake
-- Before long-running work (builds, test suites, downloads) run `meth high --for <estimate>` (e.g. `--for 2h`).
+- Before long-running work (builds, test suites, downloads) run `meth high --while-pid $$ --for <upper bound>` (e.g. `--for 2h`); it ends by itself when your shell exits.
+- Need more time? `meth extend 30m`.
 - When finished, run `meth sober`. Use `trap 'meth sober' EXIT` in scripts.
 - Check state with `meth status --json` (fields: mode, status, remainingSeconds, expiresAt).
 - Non-zero exit = failure; exit 3 means Meth is not installed/running — continue without it.

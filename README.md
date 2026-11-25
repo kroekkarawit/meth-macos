@@ -31,7 +31,11 @@ command, which also makes it easy for scripts, CI jobs and AI coding agents to u
 | **Overdose** | High plus system-wide `disablesleep` (prevents even lid-close sleep). Needs a small admin helper; always time-limited or lease-protected, and always restored | `pmset -a disablesleep 1` |
 | **Sober** | Releases everything and restores the original settings | — |
 
-- **Duration:** 30m · 1h · 4h · ∞. Every timed session expires on its own, even if the app quits.
+- **Duration:** 30m · 1h · 4h · ∞, a custom length, **until a time**, or **while an app is running**. Add time with one click. Every timed session expires on its own, even if the app quits.
+- **Battery-safe:** ends automatically at a low-battery limit (default 10%), optionally as soon as you unplug.
+- **Automatic:** stay awake while charging or while an external display is connected.
+- **Shortcuts:** ⌃⌥⌘1 Bump · ⌃⌥⌘2 High · ⌃⌥⌘3 Overdose · ⌃⌥⌘0 Sober, from any app.
+- **While you’re away:** keep chat apps showing you as active, and lock the screen after inactivity.
 - **Readable at a glance:** the menu bar icon shows the mode, and the time left appears next to it.
 
   <img src="docs/assets/menubar-states.png" width="110" alt="Menu bar: Sober (grey, empty), Bump (partly filled, 45m), High (filled, 2:00), High without a time limit">
@@ -43,7 +47,7 @@ command, which also makes it easy for scripts, CI jobs and AI coding agents to u
 
 ## Install
 
-1. Download **`Meth-<version>.dmg`** from [Releases](https://github.com/kroekkarawit/meth-macos/releases/latest).
+1. Download **`Meth-<version>.dmg`** from **[meth.shrill-frost-3471.workers.dev](https://meth.shrill-frost-3471.workers.dev)** (or [GitHub Releases](https://github.com/kroekkarawit/meth-macos/releases/latest)).
 2. Open it and drag **Meth** into **Applications**.
 3. Launch Meth. It lives in the menu bar (no Dock icon).
 4. Choose a mode.
@@ -63,6 +67,9 @@ Install from the menu: **Meth Settings → Install Command Line Tool…** This c
 meth high --for 2h        # keep Mac and display awake for 2 hours
 meth bump --for 30m       # keep Mac awake, display may sleep
 meth bump                 # until `meth sober`
+meth high --until 18:00   # until a time of day
+meth bump --while-pid $$  # until this shell exits
+meth extend 30m           # add time to the running session
 meth status               # human-readable
 meth status --json        # stable machine-readable schema
 meth sober                # restore normal sleep (alias: meth stop)
@@ -116,7 +123,7 @@ reports Overdose as unsupported. No software can override hardware-enforced slee
 
 ## Updates
 
-Meth checks the HTTPS feed `https://github.com/kroekkarawit/meth-macos/releases/latest/download/appcast.xml` once a day
+Meth checks the HTTPS feed `https://meth.shrill-frost-3471.workers.dev/appcast.xml` once a day
 (**Meth Settings → Automatically Check for Updates**), or on demand (**Check for Updates…**).
 Updates are EdDSA-signed and notarized, and Sparkle verifies them before installing. An active session keeps running through an update.
 

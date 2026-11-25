@@ -37,6 +37,7 @@ jobs:
         run: |
           for p in Meth/Resources/LaunchServices/*.plist; do plutil -lint "$p"; done
           python3 -c 'import json; json.load(open("Meth/Resources/Localizable.xcstrings"))'
+          node --check site/src/index.js
           shellcheck --version >/dev/null 2>&1 || brew install shellcheck
           shellcheck -x -S warning Scripts/*.sh
           # No private keys or credentials in the tree.

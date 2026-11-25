@@ -25,3 +25,7 @@ AuthKey_*
 
 # macOS
 .DS_Store
+
+# Cloudflare
+/site/.wrangler/
+/site/node_modules/
